@@ -7,11 +7,11 @@ const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 
 interface WeatherData {
-  coord: {
+  coord?: {
     lat: number;
     lon: number;
   };
-  main: {
+  main?: {
     temp: number;
     feels_like: number;
     temp_min: number;
@@ -19,30 +19,63 @@ interface WeatherData {
     pressure: number;
     humidity: number;
   };
-  wind: {
+  wind?: {
     speed: number;
     deg: number;
     gust: number;
   };
-  weather: [
+  weather?: [
     {
       main: string;
       description: string;
       icon: string;
     }
   ];
-  sys: {
+  sys?: {
     country: string;
   };
-  name: string;
+  name?: string;
+  // For forecast API
+  list?: Array<{
+    dt: number;
+    main: {
+      temp: number;
+      feels_like: number;
+      temp_min: number;
+      temp_max: number;
+      pressure: number;
+      humidity: number;
+    };
+    wind: {
+      speed: number;
+      deg: number;
+      gust: number;
+    };
+    weather: [
+      {
+        main: string;
+        description: string;
+        icon: string;
+      }
+    ];
+    dt_txt: string;
+  }>;
+  city?: {
+    name: string;
+    country: string;
+    coord: {
+      lat: number;
+      lon: number;
+    };
+  };
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { city, lat, lon } = req.query;
-  console.log('fetchData API called with:', { city, lat, lon });
+  const { city, lat, lon, forecast } = req.query;
+  console.log('fetchData API called with:', { city, lat, lon, forecast });
 
   // Check if either city name or coordinates are provided
   const hasCity = city && typeof city === 'string' && city.trim().length > 0;
@@ -75,7 +108,13 @@ export default async function handler(
       params.q = city;
     }
 
-    const response = await axios.get<WeatherData>(BASE_URL, {
+    // Choose API endpoint based on forecast parameter
+    const apiUrl =
+      forecast === 'true'
+        ? 'https://api.openweathermap.org/data/2.5/forecast'
+        : BASE_URL;
+
+    const response = await axios.get<WeatherData>(apiUrl, {
       params,
     });
 

@@ -9,6 +9,7 @@ import {
   addWeatherCard,
 } from '@/redux/weatherSlice';
 import { TextField } from '@mui/material';
+import { useGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
 
 interface City {
   name: string;
@@ -62,14 +63,54 @@ const textFieldStyles = {
 const SearchBar = (props: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [currentWeatherQuery, setCurrentWeatherQuery] = useState<
+    string | { lat: number; lon: number } | null
+  >(null);
 
   const dispatch = useDispatch();
   const { cities, isLoadingCities } = useSelector(
     (state: any) => state.weather
   );
 
+  // RTK Query хук для получения погоды
+  const {
+    data: weatherData,
+    isLoading: isLoadingWeather,
+    error: weatherError,
+  } = useGetCurrentWeatherQuery(
+    currentWeatherQuery,
+    { skip: !currentWeatherQuery } // Не выполнять запрос, если currentWeatherQuery пустой
+  );
+
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
+
+  // Эффект для обработки полученных данных погоды через RTK Query
+  useEffect(() => {
+    if (weatherData && !isLoadingWeather && !weatherError) {
+      dispatch(
+        addWeatherCard({
+          temperature: weatherData.main.temp,
+          humidity: weatherData.main.humidity,
+          feelsLike: weatherData.main.feels_like,
+          tempMin: weatherData.main.temp_min,
+          tempMax: weatherData.main.temp_max,
+          pressure: weatherData.main.pressure,
+          windSpeed: weatherData.wind.speed,
+          windDeg: weatherData.wind.deg,
+          description: weatherData.weather[0].description,
+          icon: weatherData.weather[0].icon,
+          city: weatherData.name,
+          country: weatherData.sys.country,
+          lat: weatherData.coord.lat,
+          lon: weatherData.coord.lon,
+          state: undefined, // RTK Query не предоставляет state
+        })
+      );
+      // Очищаем запрос после успешного добавления
+      setCurrentWeatherQuery(null);
+    }
+  }, [weatherData, isLoadingWeather, weatherError, dispatch]);
 
   const searchCities = useCallback(
     async (query: string) => {
@@ -96,51 +137,6 @@ const SearchBar = (props: Props) => {
     [dispatch]
   );
 
-  const fetchWeather = useCallback(
-    async (cityOrName: City | string) => {
-      try {
-        let url: string;
-        if (typeof cityOrName === 'string') {
-          // Manual input - use city name
-          url = `/api/fetchData?city=${encodeURIComponent(cityOrName)}`;
-        } else {
-          // Selected from list - use coordinates
-          url = `/api/fetchData?lat=${cityOrName.lat}&lon=${cityOrName.lon}`;
-        }
-
-        console.log('Fetching weather with URL:', url);
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log('Weather API response:', data);
-        if (!data.error) {
-          dispatch(
-            addWeatherCard({
-              temperature: data.main.temp,
-              humidity: data.main.humidity,
-              feelsLike: data.main.feels_like,
-              tempMin: data.main.temp_min,
-              tempMax: data.main.temp_max,
-              pressure: data.main.pressure,
-              windSpeed: data.wind.speed,
-              windDeg: data.wind.deg,
-              description: data.weather[0].description,
-              icon: data.weather[0].icon,
-              city: data.name,
-              country: data.sys.country,
-              lat: data.lat || data.coord?.lat || 0,
-              lon: data.lon || data.coord?.lon || 0,
-              state:
-                typeof cityOrName === 'object' ? cityOrName.state : undefined,
-            })
-          );
-        }
-      } catch (error) {
-        console.error('Error fetching weather:', error);
-      }
-    },
-    [dispatch]
-  );
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -150,13 +146,14 @@ const SearchBar = (props: Props) => {
   const handleCitySelect = (city: City) => {
     setInputValue(city.name);
     setShowSuggestions(false);
-    fetchWeather(city);
+    // Используем RTK Query с координатами
+    setCurrentWeatherQuery({ lat: city.lat, lon: city.lon });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      fetchWeather(inputValue.trim());
+      setCurrentWeatherQuery(inputValue.trim());
       setShowSuggestions(false);
     }
   };
