@@ -18,7 +18,7 @@ import Modal from '@/components/Modal';
 
 interface WeatherCardProps {
   id: string;
-  temperature: number | null;
+  temperature: number;
   humidity: number | null;
   condition: string | null;
   icon: string | null;
@@ -54,7 +54,7 @@ const CityCard = (props: Props) => {
 
   //avoiding hydration
   const safeIcon = icon ?? '01d';
-  const safeTemp = temperature ?? '--';
+  const safeTemp = Math.round(temperature) ?? '--';
   const safeHumidity = humidity ?? '--';
   const safeCondition = condition ?? 'невiдомо';
 
@@ -100,22 +100,15 @@ const CityCard = (props: Props) => {
               {country && `, ${country}`}
             </Typography>
           )}
-          {/* {temperature && ( */}
           <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             Температура: {safeTemp}°C
-            {/* Температура: {temperature ? Math.round(temperature) : '--'}°C */}
           </Typography>
-          {/* )} */}
-          {/* {humidity && ( */}
           <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             Вологість: {safeHumidity}%
           </Typography>
-          {/* )} */}
-          {/* {condition && ( */}
           <Typography variant='body2' sx={{ color: 'text.secondary' }}>
             Умови: {safeCondition}
           </Typography>
-          {/* )} */}
         </CardContent>
         <CardActions>
           <Button

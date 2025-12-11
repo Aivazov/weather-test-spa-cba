@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import weatherReducer from './weatherSlice';
 import { fetchWeatherData } from '@/pages/api/fetchWeatherData';
-import { serialize } from 'v8';
 
 const loadState = () => {
   try {

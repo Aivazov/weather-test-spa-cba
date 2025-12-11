@@ -74,6 +74,9 @@ const weatherSlice = createSlice({
         };
       }
     },
+    setWeatherCards: (state, action) => {
+      state.cards = action.payload;
+    },
   },
 });
 
@@ -84,5 +87,6 @@ export const {
   setLoadingCities,
   clearCities,
   updateWeatherCard,
+  setWeatherCards,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

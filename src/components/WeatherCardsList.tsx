@@ -1,5 +1,5 @@
 // import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   // Button,
   // Card,
@@ -13,10 +13,11 @@ import {
 } from '@mui/material';
 import CityCard from './CityCard';
 import { useEffect, useState } from 'react';
+import { setWeatherCards } from '@/redux/weatherSlice';
 
 interface WeatherCard {
   id: string;
-  temperature: number | null;
+  temperature: number;
   humidity: number | null;
   description: string | null;
   condition: string | null;
@@ -33,11 +34,23 @@ interface WeatherCard {
 const WeatherCardsList = () => {
   const { cards } = useSelector((state: any) => state.weather);
   const [mounted, setMounted] = useState(false);
+  const dispatch = useDispatch();
 
   // waiting for the Client to avoid hydration
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const localCards = localStorage.getItem('weatherCards');
+    if (localCards) {
+      try {
+        const cards = JSON.parse(localCards);
+        dispatch(setWeatherCards(cards));
+      } catch {}
+    }
+  }, []);
+
   if (!mounted) return null;
 
   if (cards.length === 0) {
