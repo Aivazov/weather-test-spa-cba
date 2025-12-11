@@ -52,6 +52,12 @@ const CityCard = (props: Props) => {
   } = props;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
+  //avoiding hydration
+  const safeIcon = icon ?? '01d';
+  const safeTemp = temperature ?? '--';
+  const safeHumidity = humidity ?? '--';
+  const safeCondition = condition ?? 'невiдомо';
+
   const handleDeleteClick = () => {
     setDeleteDialogOpen(true);
   };
@@ -84,7 +90,7 @@ const CityCard = (props: Props) => {
             height: 120,
             objectFit: 'contain',
           }}
-          image={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+          image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
           title='weather icon'
         />
         <CardContent>
@@ -94,21 +100,22 @@ const CityCard = (props: Props) => {
               {country && `, ${country}`}
             </Typography>
           )}
-          {temperature && (
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Температура: {temperature ? Math.round(temperature) : '--'}°C
-            </Typography>
-          )}
-          {humidity && (
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Вологість: {humidity}%
-            </Typography>
-          )}
-          {condition && (
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Умови: {condition}
-            </Typography>
-          )}
+          {/* {temperature && ( */}
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            Температура: {safeTemp}°C
+            {/* Температура: {temperature ? Math.round(temperature) : '--'}°C */}
+          </Typography>
+          {/* )} */}
+          {/* {humidity && ( */}
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            Вологість: {safeHumidity}%
+          </Typography>
+          {/* )} */}
+          {/* {condition && ( */}
+          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+            Умови: {safeCondition}
+          </Typography>
+          {/* )} */}
         </CardContent>
         <CardActions>
           <Button

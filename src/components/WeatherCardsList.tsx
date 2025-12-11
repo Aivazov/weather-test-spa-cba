@@ -1,17 +1,18 @@
 // import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  createTheme,
-  ThemeProvider,
+  // Button,
+  // Card,
+  // CardActions,
+  // CardContent,
+  // CardMedia,
+  // createTheme,
+  // ThemeProvider,
   Typography,
   Box,
 } from '@mui/material';
 import CityCard from './CityCard';
+import { useEffect, useState } from 'react';
 
 interface WeatherCard {
   id: string;
@@ -31,6 +32,13 @@ interface WeatherCard {
 
 const WeatherCardsList = () => {
   const { cards } = useSelector((state: any) => state.weather);
+  const [mounted, setMounted] = useState(false);
+
+  // waiting for the Client to avoid hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return null;
 
   if (cards.length === 0) {
     return (
