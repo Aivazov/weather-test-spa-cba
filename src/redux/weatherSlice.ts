@@ -50,7 +50,7 @@ const weatherSlice = createSlice({
       };
       state.cards.push(newCard);
     },
-    removeWeatherCard: (state, action) => {
+    deleteWeatherCard: (state, action) => {
       state.cards = state.cards.filter((card) => card.id !== action.payload);
     },
     setCities: (state, action) => {
@@ -70,7 +70,7 @@ const weatherSlice = createSlice({
         state.cards[idx] = {
           ...state.cards[idx],
           ...action.payload,
-          id: state.cards[idx].id, // id не меняем
+          id: state.cards[idx].id,
         };
       }
     },
@@ -79,7 +79,7 @@ const weatherSlice = createSlice({
 
 export const {
   addWeatherCard,
-  removeWeatherCard,
+  deleteWeatherCard,
   setCities,
   setLoadingCities,
   clearCities,

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Button,
   Card,
@@ -11,7 +13,7 @@ import {
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { removeWeatherCard } from '@/redux/weatherSlice';
+import { deleteWeatherCard } from '@/redux/weatherSlice';
 import Modal from '@/components/Modal';
 
 interface WeatherCardProps {
@@ -55,7 +57,7 @@ const CityCard = (props: Props) => {
   };
 
   const handleDeleteConfirm = () => {
-    dispatch(removeWeatherCard(id));
+    dispatch(deleteWeatherCard(id));
     setDeleteDialogOpen(false);
   };
 
