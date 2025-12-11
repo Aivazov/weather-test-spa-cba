@@ -99,6 +99,7 @@ const SearchBar = (props: Props) => {
           windSpeed: weatherData.wind.speed,
           windDeg: weatherData.wind.deg,
           description: weatherData.weather[0].description,
+          condition: weatherData.weather[0].main,
           icon: weatherData.weather[0].icon,
           city: weatherData.name,
           country: weatherData.sys.country,
@@ -108,6 +109,8 @@ const SearchBar = (props: Props) => {
         })
       );
       // Очищаем запрос после успешного добавления
+      console.log('weatherData', weatherData);
+
       setCurrentWeatherQuery(null);
     }
   }, [weatherData, isLoadingWeather, weatherError, dispatch]);

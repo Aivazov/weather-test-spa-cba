@@ -18,6 +18,7 @@ interface WeatherCard {
   temperature: number | null;
   humidity: number | null;
   description: string | null;
+  condition: string | null;
   icon: string | null;
   country: string | null;
   city: string;
@@ -58,7 +59,7 @@ const WeatherCardsList = () => {
           country={card.country}
           temperature={card.temperature}
           humidity={card.humidity}
-          description={card.description}
+          condition={card.condition}
           id={card.id}
           lat={card.lat}
           lon={card.lon}

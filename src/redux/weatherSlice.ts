@@ -11,6 +11,7 @@ interface WeatherCard {
   windSpeed: number | null;
   windDeg: number | null;
   description: string | null;
+  condition: string | null;
   icon: string | null;
   country: string | null;
   city: string;
@@ -39,6 +40,7 @@ const weatherSlice = createSlice({
         windSpeed: action.payload.windSpeed,
         windDeg: action.payload.windDeg,
         description: action.payload.description,
+        condition: action.payload.condition,
         icon: action.payload.icon,
         country: action.payload.country,
         city: action.payload.city,
@@ -60,6 +62,18 @@ const weatherSlice = createSlice({
     clearCities: (state) => {
       state.cities = [];
     },
+    updateWeatherCard: (state, action) => {
+      const idx = state.cards.findIndex(
+        (card) => card.id === action.payload.id
+      );
+      if (idx !== -1) {
+        state.cards[idx] = {
+          ...state.cards[idx],
+          ...action.payload,
+          id: state.cards[idx].id, // id не меняем
+        };
+      }
+    },
   },
 });
 
@@ -69,5 +83,6 @@ export const {
   setCities,
   setLoadingCities,
   clearCities,
+  updateWeatherCard,
 } = weatherSlice.actions;
 export default weatherSlice.reducer;

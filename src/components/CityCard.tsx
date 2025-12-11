@@ -18,7 +18,7 @@ interface WeatherCardProps {
   id: string;
   temperature: number | null;
   humidity: number | null;
-  description: string | null;
+  condition: string | null;
   icon: string | null;
   country: string | null;
   city: string;
@@ -40,7 +40,7 @@ const CityCard = (props: Props) => {
     temperature,
     humidity,
     city,
-    description,
+    condition,
     country,
     icon,
     lat,
@@ -92,14 +92,6 @@ const CityCard = (props: Props) => {
               {country && `, ${country}`}
             </Typography>
           )}
-          {/* {(lat || lon) && (
-            <Typography
-              variant='body2'
-              sx={{ color: 'text.secondary', fontSize: '0.75rem' }}
-            >
-              Координати: {lat?.toFixed(4)}, {lon?.toFixed(4)}
-            </Typography>
-          )} */}
           {temperature && (
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
               Температура: {temperature ? Math.round(temperature) : '--'}°C
@@ -110,9 +102,9 @@ const CityCard = (props: Props) => {
               Вологість: {humidity}%
             </Typography>
           )}
-          {description && (
+          {condition && (
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Умови: {description}
+              Умови: {condition}
             </Typography>
           )}
         </CardContent>

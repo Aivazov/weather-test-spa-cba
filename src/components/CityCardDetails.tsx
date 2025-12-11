@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
-import React from 'react';
+// import React from 'react';
 import { useSelector } from 'react-redux';
 
 type Props = {};
@@ -122,13 +122,12 @@ const CityCardDetails = (props: Props) => {
             }}
           >
             <Typography variant='h6' color='text.secondary'>
-              Вітер
+              Вітер, км/г
             </Typography>
             <Typography variant='h4'>
               {card.windSpeed
                 ? `${Math.floor(card.windSpeed * 3.6 * 10) / 10}`
-                : '--'}{' '}
-              км/г
+                : '--'}
               {/* , {card.windDeg ? `${card.windDeg}` : '--'} */}
             </Typography>
           </Box>
