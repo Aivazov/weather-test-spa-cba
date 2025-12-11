@@ -2,7 +2,12 @@
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCities, setLoadingCities, clearCities, addWeatherCard } from '@/redux/weatherSlice';
+import {
+  setCities,
+  setLoadingCities,
+  clearCities,
+  addWeatherCard,
+} from '@/redux/weatherSlice';
 import { TextField } from '@mui/material';
 
 interface City {
@@ -14,7 +19,7 @@ interface City {
   state?: string;
 }
 
-type Props = {}
+type Props = {};
 const textFieldStyles = {
   width: '100%',
   '& .MuiFormLabel-root': {
@@ -31,7 +36,7 @@ const textFieldStyles = {
     },
     '&.Mui-focused': {
       backgroundColor: '#4c4d4f',
-    }
+    },
   },
   '& .MuiFilledInput-input': {
     height: '30px',
@@ -52,56 +57,70 @@ const textFieldStyles = {
   '&:hover .MuiFilledInput-underline:before': {
     borderBottomColor: 'grey.400',
   },
-}
+};
 
 const SearchBar = (props: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const dispatch = useDispatch();
-  const { cities, isLoadingCities } = useSelector((state: any) => state.weather);
-  
+  const { cities, isLoadingCities } = useSelector(
+    (state: any) => state.weather
+  );
+
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  const searchCities = useCallback(async (query: string) => {
-    if (query.length < 2) {
-      dispatch(clearCities());
-      return;
-    }
-
-    dispatch(setLoadingCities(true));
-    try {
-      const response = await fetch(`/api/searchCities?query=${encodeURIComponent(query)}`);
-      const data = await response.json();
-      dispatch(setCities(data));
-      setShowSuggestions(true);
-    } catch (error) {
-      console.error('Error searching cities:', error);
-      dispatch(clearCities());
-    } finally {
-      dispatch(setLoadingCities(false));
-    }
-  }, [dispatch]);
-
-  const fetchWeather = useCallback(async (cityName: string) => {
-    try {
-      const response = await fetch(`/api/fetchData?city=${encodeURIComponent(cityName)}`);
-      const data = await response.json();
-      if (!data.error) {
-        dispatch(addWeatherCard({
-          temperature: data.main.temp,
-          humidity: data.main.humidity,
-          description: data.weather[0].description,
-          icon: data.weather[0].icon,
-          city: data.name,
-          country: data.sys.country,
-        }));
+  const searchCities = useCallback(
+    async (query: string) => {
+      if (query.length < 2) {
+        dispatch(clearCities());
+        return;
       }
-    } catch (error) {
-      console.error('Error fetching weather:', error);
-    }
-  }, [dispatch]);
+
+      dispatch(setLoadingCities(true));
+      try {
+        const response = await fetch(
+          `/api/searchCities?query=${encodeURIComponent(query)}`
+        );
+        const data = await response.json();
+        dispatch(setCities(data));
+        setShowSuggestions(true);
+      } catch (error) {
+        console.error('Error searching cities:', error);
+        dispatch(clearCities());
+      } finally {
+        dispatch(setLoadingCities(false));
+      }
+    },
+    [dispatch]
+  );
+
+  const fetchWeather = useCallback(
+    async (cityName: string) => {
+      try {
+        const response = await fetch(
+          `/api/fetchData?city=${encodeURIComponent(cityName)}`
+        );
+        const data = await response.json();
+        if (!data.error) {
+          dispatch(
+            addWeatherCard({
+              temperature: data.main.temp,
+              humidity: data.main.humidity,
+              description: data.weather[0].description,
+              icon: data.weather[0].icon,
+              city: data.name,
+              country: data.sys.country,
+            })
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching weather:', error);
+      }
+    },
+    [dispatch]
+  );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -124,8 +143,12 @@ const SearchBar = (props: Props) => {
   };
 
   const handleClickOutside = (e: MouseEvent) => {
-    if (suggestionsRef.current && !suggestionsRef.current.contains(e.target as Node) &&
-        inputRef.current && !inputRef.current.contains(e.target as Node)) {
+    if (
+      suggestionsRef.current &&
+      !suggestionsRef.current.contains(e.target as Node) &&
+      inputRef.current &&
+      !inputRef.current.contains(e.target as Node)
+    ) {
       setShowSuggestions(false);
     }
   };
@@ -136,35 +159,39 @@ const SearchBar = (props: Props) => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="relative">
+    <form onSubmit={handleSubmit} className='relative'>
       <TextField
-        id="filled-basic"
-        label="Введите название города..."
-        variant="filled"
+        id='filled-basic'
+        label='Введіть назву міста...'
+        variant='filled'
         ref={inputRef}
         value={inputValue}
         onChange={handleInputChange}
-        onFocus={() => inputValue && cities.length > 0 && setShowSuggestions(true)}
+        onFocus={() =>
+          inputValue && cities.length > 0 && setShowSuggestions(true)
+        }
         sx={textFieldStyles}
       />
 
       {showSuggestions && (cities.length > 0 || isLoadingCities) && (
         <div
           ref={suggestionsRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto dark:bg-gray-800 dark:border-gray-600"
+          className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto dark:bg-gray-800 dark:border-gray-600'
         >
           {isLoadingCities ? (
-            <div className="px-4 py-2 text-gray-500 dark:text-gray-400">
-              Поиск...
+            <div className='px-4 py-2 text-gray-500 dark:text-gray-400'>
+              Пошук...
             </div>
           ) : (
             cities.map((city: City, index: number) => (
               <div
                 key={index}
                 onClick={() => handleCitySelect(city)}
-                className="px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 dark:text-white"
+                className='px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 dark:text-white'
               >
-                {city.state ? `${city.name}, ${city.state}, ${city.country}` : `${city.name}, ${city.country}`}
+                {city.state
+                  ? `${city.name}, ${city.state}, ${city.country}`
+                  : `${city.name}, ${city.country}`}
               </div>
             ))
           )}

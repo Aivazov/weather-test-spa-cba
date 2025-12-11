@@ -3,7 +3,16 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { Button, Card, CardContent, CardMedia, createTheme, ThemeProvider, Typography, Box } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  createTheme,
+  ThemeProvider,
+  Typography,
+  Box,
+} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CityCardDetails from '@/components/CityCardDetails';
 
@@ -19,17 +28,26 @@ const CardDetailPage = () => {
 
   if (!card) {
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', p: 3 }}>
-        <Typography variant="h4" gutterBottom>
-          Карточка не найдена
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          p: 3,
+        }}
+      >
+        <Typography variant='h4' gutterBottom>
+          Картка не знайдена
         </Typography>
         <Button
-          variant="contained"
+          variant='contained'
           startIcon={<ArrowBackIcon />}
           onClick={() => router.push('/')}
           sx={{ mt: 2 }}
         >
-          Вернуться назад
+          Повернутися назад
         </Button>
       </Box>
     );
@@ -39,12 +57,12 @@ const CardDetailPage = () => {
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', p: 3 }}>
         <Button
-          variant="outlined"
+          variant='outlined'
           startIcon={<ArrowBackIcon />}
           onClick={() => router.push('/')}
           sx={{ mb: 3 }}
         >
-          Назад к списку
+          Назад до списка
         </Button>
 
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
