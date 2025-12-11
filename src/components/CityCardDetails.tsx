@@ -11,14 +11,20 @@ const CityCardDetails = (props: Props) => {
   const cardId = params?.id as string;
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
+  console.log('card', card);
 
   return (
     <Card sx={{ maxWidth: 600, width: '100%' }}>
       <CardMedia
-        sx={{ height: 300 }}
+        sx={{
+          height: 200,
+          maxWidth: 200,
+          margin: '0 auto',
+          objectFit: 'contain',
+        }}
         image={
           card.icon
-            ? `https://openweathermap.org/img/wn/${card.icon}@4x.png`
+            ? `https://openweathermap.org/img/wn/${card.icon}@2x.png`
             : ''
         }
         title='weather icon'
@@ -31,11 +37,23 @@ const CityCardDetails = (props: Props) => {
           align='center'
           sx={{ mb: 3 }}
         >
-          {card.city}, {card.country}
+          {card.city}
+          {card.state && `, ${card.state}`}
+          {card.country && `, ${card.country}`}
         </Typography>
 
+        {(card.lat || card.lon) && (
+          <Typography
+            variant='subtitle1'
+            align='center'
+            sx={{ mb: 2, color: 'text.secondary' }}
+          >
+            Координати: {card.lat?.toFixed(4)}, {card.lon?.toFixed(4)}
+          </Typography>
+        )}
+
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-          <Typography variant='h1' component='div' sx={{ fontWeight: 'light' }}>
+          <Typography variant='h2' component='div' sx={{ fontWeight: 'light' }}>
             {card.temperature ? Math.round(card.temperature) : '--'}°C
           </Typography>
         </Box>
@@ -57,10 +75,10 @@ const CityCardDetails = (props: Props) => {
             }}
           >
             <Typography variant='h6' color='text.secondary'>
-              Температура
+              Відчувається як
             </Typography>
             <Typography variant='h4'>
-              {card.temperature ? Math.round(card.temperature) : '--'}°C
+              {card.feelsLike ? Math.round(card.feelsLike) : '--'}°C
             </Typography>
           </Box>
 
@@ -77,6 +95,41 @@ const CityCardDetails = (props: Props) => {
             </Typography>
             <Typography variant='h4'>
               {card.humidity ? `${card.humidity}%` : '--'}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              textAlign: 'center',
+              p: 2,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+            }}
+          >
+            <Typography variant='h6' color='text.secondary'>
+              Тиск, мм
+            </Typography>
+            <Typography variant='h4'>
+              {card.pressure ? `${card.pressure}` : '--'}
+            </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              textAlign: 'center',
+              p: 2,
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+            }}
+          >
+            <Typography variant='h6' color='text.secondary'>
+              Вітер
+            </Typography>
+            <Typography variant='h4'>
+              {card.windSpeed
+                ? `${Math.floor(card.windSpeed * 3.6 * 10) / 10}`
+                : '--'}{' '}
+              км/г
+              {/* , {card.windDeg ? `${card.windDeg}` : '--'} */}
             </Typography>
           </Box>
         </Box>

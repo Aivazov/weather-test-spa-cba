@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import { NextApiRequest, NextApiResponse } from 'next';
+import axios from 'axios';
 
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 const GEO_URL = 'http://api.openweathermap.org/geo/1.0/direct';
@@ -13,31 +13,42 @@ interface CityResult {
   state?: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { query } = req.query;
 
   if (!query || typeof query !== 'string') {
-    return res.status(400).json({ error: 'Query is required and must be a string' });
+    return res
+      .status(400)
+      .json({ error: 'Query is required and must be a string' });
   }
 
   if (!WEATHER_API_KEY) {
-    return res.status(500).json({ error: 'API_KEY is missing in the environment variables' });
+    return res
+      .status(500)
+      .json({ error: 'API_KEY is missing in the environment variables' });
   }
 
   try {
     const response = await axios.get<CityResult[]>(GEO_URL, {
       params: {
         q: query,
-        limit: 5, // Ограничиваем до 5 результатов
+        limit: 5,
         appid: WEATHER_API_KEY,
       },
     });
 
-    const cities = response.data.map(city => ({
+    const cities = response.data.map((city) => ({
       name: city.name,
       country: city.country,
       state: city.state,
-      fullName: city.state ? `${city.name}, ${city.state}, ${city.country}` : `${city.name}, ${city.country}`,
+      lat: city.lat,
+      lon: city.lon,
+      fullName: city.state
+        ? `${city.name}, ${city.state}, ${city.country}`
+        : `${city.name}, ${city.country}`,
     }));
 
     return res.status(200).json(cities);

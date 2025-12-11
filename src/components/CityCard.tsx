@@ -22,6 +22,9 @@ interface WeatherCardProps {
   icon: string | null;
   country: string | null;
   city: string;
+  lat: number;
+  lon: number;
+  state?: string;
   lightMode: boolean;
 }
 
@@ -40,6 +43,9 @@ const CityCard = (props: Props) => {
     description,
     country,
     icon,
+    lat,
+    lon,
+    state,
     lightMode,
   } = props;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -72,16 +78,28 @@ const CityCard = (props: Props) => {
         }}
       >
         <CardMedia
-          sx={{ height: 140 }}
+          sx={{
+            height: 120,
+            objectFit: 'contain',
+          }}
           image={`https://openweathermap.org/img/wn/${icon}@2x.png`}
           title='weather icon'
         />
         <CardContent>
           {city && country && (
             <Typography gutterBottom variant='h5' component='div'>
-              {city}, {country}
+              {city}
+              {country && `, ${country}`}
             </Typography>
           )}
+          {/* {(lat || lon) && (
+            <Typography
+              variant='body2'
+              sx={{ color: 'text.secondary', fontSize: '0.75rem' }}
+            >
+              Координати: {lat?.toFixed(4)}, {lon?.toFixed(4)}
+            </Typography>
+          )} */}
           {temperature && (
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
               Температура: {temperature ? Math.round(temperature) : '--'}°C
@@ -94,7 +112,7 @@ const CityCard = (props: Props) => {
           )}
           {description && (
             <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Погодні умови: {description}
+              Умови: {description}
             </Typography>
           )}
         </CardContent>

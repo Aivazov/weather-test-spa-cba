@@ -97,21 +97,40 @@ const SearchBar = (props: Props) => {
   );
 
   const fetchWeather = useCallback(
-    async (cityName: string) => {
+    async (cityOrName: City | string) => {
       try {
-        const response = await fetch(
-          `/api/fetchData?city=${encodeURIComponent(cityName)}`
-        );
+        let url: string;
+        if (typeof cityOrName === 'string') {
+          // Manual input - use city name
+          url = `/api/fetchData?city=${encodeURIComponent(cityOrName)}`;
+        } else {
+          // Selected from list - use coordinates
+          url = `/api/fetchData?lat=${cityOrName.lat}&lon=${cityOrName.lon}`;
+        }
+
+        console.log('Fetching weather with URL:', url);
+        const response = await fetch(url);
         const data = await response.json();
+        console.log('Weather API response:', data);
         if (!data.error) {
           dispatch(
             addWeatherCard({
               temperature: data.main.temp,
               humidity: data.main.humidity,
+              feelsLike: data.main.feels_like,
+              tempMin: data.main.temp_min,
+              tempMax: data.main.temp_max,
+              pressure: data.main.pressure,
+              windSpeed: data.wind.speed,
+              windDeg: data.wind.deg,
               description: data.weather[0].description,
               icon: data.weather[0].icon,
               city: data.name,
               country: data.sys.country,
+              lat: data.lat || data.coord?.lat || 0,
+              lon: data.lon || data.coord?.lon || 0,
+              state:
+                typeof cityOrName === 'object' ? cityOrName.state : undefined,
             })
           );
         }
@@ -131,13 +150,13 @@ const SearchBar = (props: Props) => {
   const handleCitySelect = (city: City) => {
     setInputValue(city.name);
     setShowSuggestions(false);
-    fetchWeather(city.name);
+    fetchWeather(city);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      fetchWeather(inputValue);
+      fetchWeather(inputValue.trim());
       setShowSuggestions(false);
     }
   };
