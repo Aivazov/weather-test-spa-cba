@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App 🌤️
 
-## Getting Started
+Погодное приложение с поиском городов и отображением детальной информации о погоде.
 
-First, run the development server:
+## 🚀 Возможности
 
+- 🔍 Поиск городов по названию
+- 📍 Определение погоды по геолокации
+- 🌡️ Детальная информация о погоде (температура, влажность, давление, ветер)
+- 💾 Сохранение избранных городов в localStorage
+- 🔄 Автоматическое обновление данных при перезагрузке страницы
+- 📱 Адаптивный дизайн с Material-UI
+
+## 🛠 Технологии
+
+- **Next.js 16** - React фреймворк
+- **TypeScript** - типизированный JavaScript
+- **Redux Toolkit** - управление состоянием
+- **RTK Query** - API запросы
+- **Material-UI** - компоненты интерфейса
+- **Jest + Testing Library** - тестирование
+- **SCSS** - стилизация
+
+## 📋 Установка и запуск
+
+1. **Клонируйте репозиторий:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd weather-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Установите зависимости:**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Настройте переменные окружения:**
+Создайте файл `.env.local` в корне проекта:
+```bash
+WEATHER_API_KEY=your_openweathermap_api_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Получите API ключ на [OpenWeatherMap](https://openweathermap.org/api)
 
-## Learn More
+4. **Запустите приложение:**
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧪 Тестирование
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm test
+```
 
-## Deploy on Vercel
+Проект содержит комплексное покрытие тестами:
+- ✅ API тесты (RTK Query)
+- ✅ Redux тесты (store, slice, thunks)
+- ✅ Компонентные тесты (74 теста всего)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Развертывание на Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Подключите репозиторий к Vercel**
+
+2. **Настройте переменные окружения в Vercel:**
+   - `WEATHER_API_KEY` - ваш API ключ OpenWeatherMap
+
+3. **Vercel автоматически:**
+   - Выполнит build: `npm run build`
+   - Оптимизирует приложение для production
+   - Настроит CDN и роутинг
+
+## 📁 Структура проекта
+
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── layout.tsx      # Главный layout
+│   ├── page.tsx        # Главная страница
+│   ├── card/[id]/      # Детальная страница города
+│   └── globals.css     # Глобальные стили
+├── components/         # React компоненты
+│   ├── Header/         # Шапка с поиском
+│   ├── CityCard.tsx    # Карточка города
+│   ├── WeatherCardsList.tsx # Список карточек
+│   └── WeatherInitializer.tsx # Инициализация данных
+├── redux/              # Управление состоянием
+│   ├── store.ts        # Конфигурация store
+│   ├── weatherSlice.ts # Weather reducer
+│   └── loadWeatherThunk.ts # Async thunks
+├── pages/api/          # API routes
+│   ├── fetchWeatherData.ts # Погода
+│   └── searchCities.ts     # Поиск городов
+└── tests/              # Тесты
+    ├── api/            # API тесты
+    ├── components/     # Компонентные тесты
+    └── redux/          # Redux тесты
+```
+
+## 🎯 API
+
+Приложение использует [OpenWeatherMap API](https://openweathermap.org/api) для получения данных о погоде.
+
+## 📝 Лицензия
+
+MIT License

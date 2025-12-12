@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const fetchWeatherData = createApi({
+const fetchWeatherData = createApi({
   reducerPath: 'fetchWeatherData',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/',
@@ -39,6 +39,8 @@ export const fetchWeatherData = createApi({
     }),
   }),
 });
+
+export default fetchWeatherData;
 
 export const {
   useGetCurrentWeatherQuery,

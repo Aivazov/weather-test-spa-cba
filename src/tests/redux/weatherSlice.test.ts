@@ -1,4 +1,22 @@
 // weatherSlice.test.ts
+// Mock the thunk actions for testing
+const mockLoadWeatherData = {
+  pending: { type: 'weather/loadWeatherData/pending' },
+  fulfilled: { type: 'weather/loadWeatherData/fulfilled', payload: [] },
+  rejected: { type: 'weather/loadWeatherData/rejected' },
+};
+
+const mockRefreshWeatherCards = {
+  pending: { type: 'weather/refreshWeatherCards/pending' },
+  fulfilled: { type: 'weather/refreshWeatherCards/fulfilled', payload: [] },
+  rejected: { type: 'weather/refreshWeatherCards/rejected' },
+};
+
+jest.mock('@/redux/loadWeatherThunk', () => ({
+  refreshWeatherCards: mockRefreshWeatherCards,
+  loadWeatherData: mockLoadWeatherData,
+}));
+
 import weatherSlice, {
   addWeatherCard,
   deleteWeatherCard,
@@ -12,11 +30,12 @@ import weatherSlice, {
 const reducer = weatherSlice;
 
 describe('Weather Slice', () => {
-  const initialState = {
-    cards: [],
-    cities: [],
-    isLoadingCities: false,
-  };
+const initialState = {
+  cards: [],
+  cities: [],
+  isLoadingCities: false,
+  isLoading: false,
+};
 
   it('should return the initial state', () => {
     expect(reducer(undefined, { type: undefined })).toEqual(initialState);
@@ -112,7 +131,9 @@ describe('Weather Slice', () => {
     });
 
     it('should not affect other cards when deleting', () => {
+      // Create cards with different IDs manually to avoid duplicate coordinate check
       const card1 = {
+        id: 'card1',
         temperature: 20,
         humidity: 60,
         description: 'clear sky',
@@ -126,6 +147,7 @@ describe('Weather Slice', () => {
       };
 
       const card2 = {
+        id: 'card2',
         temperature: 25,
         humidity: 50,
         description: 'sunny',
@@ -133,20 +155,15 @@ describe('Weather Slice', () => {
         icon: '01d',
         city: 'Kyiv',
         country: 'UA',
-        lat: 50.4501, // Different coordinates to avoid duplicate check
+        lat: 50.4501,
         lon: 30.5234,
         state: undefined,
       };
 
-      let state = reducer(initialState, addWeatherCard(card1));
-      expect(state.cards).toHaveLength(1);
-
-      state = reducer(state, addWeatherCard(card2));
+      let state = reducer(initialState, setWeatherCards([card1, card2]));
       expect(state.cards).toHaveLength(2);
 
-      const cardIdToDelete = state.cards[0].id;
-
-      state = reducer(state, deleteWeatherCard(cardIdToDelete));
+      state = reducer(state, deleteWeatherCard('card1'));
 
       expect(state.cards).toHaveLength(1);
       expect(state.cards[0].city).toBe('Kyiv');

@@ -1,38 +1,32 @@
 // components/WeatherInitializer.tsx
 'use client';
 
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addWeatherCard, updateWeatherCard } from '@/redux/weatherSlice';
-import { useLazyGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshAllWeatherCards } from '@/redux/store';
 
 export default function WeatherInitializer() {
   const dispatch = useDispatch();
-  const [loadWeather] = useLazyGetCurrentWeatherQuery();
+  const [initialized, setInitialized] = useState(false);
+  const cards = useSelector((state: any) => state.weather.cards);
 
   useEffect(() => {
-    const saved = localStorage.getItem('weatherCards');
-    if (!saved) return;
+    console.log(
+      'WeatherInitializer: cards.length =',
+      cards.length,
+      'initialized =',
+      initialized
+    );
 
-    const cards = JSON.parse(saved);
-
-    // 1. Вставляем загруженные карточки в Redux
-    cards.forEach((card: any) => dispatch(addWeatherCard(card)));
-
-    // 2. Обновляем каждую через API
-    cards.forEach(async (card: any) => {
-      try {
-        const params =
-          card.lat && card.lon ? { lat: card.lat, lon: card.lon } : card.city;
-
-        const fresh = await loadWeather(params).unwrap();
-
-        dispatch(updateWeatherCard({ id: card.id, ...fresh }));
-      } catch (error) {
-        console.warn('Failed to refresh card:', error);
-      }
-    });
-  }, []);
+    // Запускаем обновление только один раз, когда карточки загружены из localStorage
+    if (!initialized && cards.length > 0) {
+      console.log(
+        'WeatherInitializer: Found cards in store, starting refresh...'
+      );
+      refreshAllWeatherCards();
+      setInitialized(true);
+    }
+  }, [cards.length, initialized]);
 
   return null;
 }

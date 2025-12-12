@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { refreshWeatherCards } from './loadWeatherThunk';
 
-interface WeatherCard {
+export interface WeatherCard {
   // id: number;
   id: string;
   temperature: number | null;
@@ -27,6 +28,7 @@ const weatherSlice = createSlice({
     cards: [] as WeatherCard[],
     cities: [],
     isLoadingCities: false,
+    isLoading: false,
   },
   reducers: {
     addWeatherCard: (state, action) => {
@@ -89,6 +91,37 @@ const weatherSlice = createSlice({
       state.cards = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(refreshWeatherCards.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(refreshWeatherCards.fulfilled, (state, action) => {
+        console.log(
+          'weatherSlice: refreshWeatherCards.fulfilled with',
+          action.payload.length,
+          'cards'
+        );
+
+        // Обновляем каждую карточку индивидуально
+        action.payload.forEach((updatedCard: any) => {
+          const idx = state.cards.findIndex(
+            (card) => card.id === updatedCard.id
+          );
+          if (idx !== -1) {
+            console.log(
+              `weatherSlice: Updating card ${updatedCard.city}: temp ${state.cards[idx].temperature} -> ${updatedCard.temperature}`
+            );
+            state.cards[idx] = { ...state.cards[idx], ...updatedCard };
+          }
+        });
+        state.isLoading = false;
+        console.log('weatherSlice: Cards updated successfully');
+      })
+      .addCase(refreshWeatherCards.rejected, (state) => {
+        state.isLoading = false;
+      });
+  },
 });
 
 export const {
@@ -100,4 +133,5 @@ export const {
   updateWeatherCard,
   setWeatherCards,
 } = weatherSlice.actions;
+
 export default weatherSlice.reducer;

@@ -17,7 +17,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CityCardDetails from '@/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/redux/weatherSlice';
-import { useLazyGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
+import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 

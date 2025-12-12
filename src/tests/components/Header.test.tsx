@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import { fetchWeatherData } from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 
 // Mock SCSS modules
 jest.mock('@/components/Header/Header.module.scss', () => ({
@@ -21,16 +21,22 @@ jest.mock('@/components/SearchBar/SearchBar', () => {
 // Mock fetch
 global.fetch = jest.fn();
 
+// Mock refreshWeatherCards thunk
+jest.mock('@/redux/loadWeatherThunk', () => ({
+  refreshWeatherCards: {
+    pending: { type: 'weather/refreshWeatherCards/pending' },
+    fulfilled: { type: 'weather/refreshWeatherCards/fulfilled' },
+    rejected: { type: 'weather/refreshWeatherCards/rejected' },
+  },
+}));
+
 import Header from '@/components/Header/Header';
 
 const createTestStore = (initialState?: any) => {
   return configureStore({
     reducer: {
       weather: weatherSlice,
-      [fetchWeatherData.reducerPath]: fetchWeatherData.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(fetchWeatherData.middleware),
     preloadedState: initialState,
   });
 };

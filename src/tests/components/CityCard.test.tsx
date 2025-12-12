@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import weatherSlice from '@/redux/weatherSlice';
-import { fetchWeatherData } from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 import CityCard from '@/components/CityCard';
 
 // Mock next/navigation
@@ -41,14 +41,20 @@ jest.mock('react-redux', () => ({
 // Mock fetch
 global.fetch = jest.fn();
 
+// Mock refreshWeatherCards thunk
+jest.mock('@/redux/loadWeatherThunk', () => ({
+  refreshWeatherCards: {
+    pending: { type: 'weather/refreshWeatherCards/pending' },
+    fulfilled: { type: 'weather/refreshWeatherCards/fulfilled' },
+    rejected: { type: 'weather/refreshWeatherCards/rejected' },
+  },
+}));
+
 const createTestStore = (initialState?: any) => {
   return configureStore({
     reducer: {
       weather: weatherSlice,
-      [fetchWeatherData.reducerPath]: fetchWeatherData.reducer,
     },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(fetchWeatherData.middleware),
     preloadedState: initialState,
   });
 };

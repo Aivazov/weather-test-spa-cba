@@ -5,7 +5,7 @@ import { renderHook } from '@testing-library/react';
 const mockUseGetCurrentWeatherQuery = jest.fn();
 const mockUseGetHourlyForecastQuery = jest.fn();
 
-jest.mock('@/pages/api/fetchWeatherData', () => ({
+jest.mock('@/lib/fetchWeatherData', () => ({
   useGetCurrentWeatherQuery: (...args: any[]) =>
     mockUseGetCurrentWeatherQuery(...args),
   useGetHourlyForecastQuery: (...args: any[]) =>
@@ -15,7 +15,7 @@ jest.mock('@/pages/api/fetchWeatherData', () => ({
 import {
   useGetCurrentWeatherQuery,
   useGetHourlyForecastQuery,
-} from '@/pages/api/fetchWeatherData';
+} from '@/lib/fetchWeatherData';
 
 describe('Weather API tests', () => {
   beforeEach(() => {

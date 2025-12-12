@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+
+# Testing
+src/tests/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+jest.config.js
+coverage/
+
+# Development files
+.env.local
+.env.example
+
+# Documentation
+README.md
+
+# Build artifacts
+.next/
+.vercel/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
