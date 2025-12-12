@@ -33,10 +33,10 @@ interface WeatherCard {
 
 const WeatherCardsList = () => {
   const { cards } = useSelector((state: any) => state.weather);
-  const [mounted, setMounted] = useState(false);
   const dispatch = useDispatch();
 
   // waiting for the Client to avoid hydration
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -52,6 +52,7 @@ const WeatherCardsList = () => {
   }, []);
 
   if (!mounted) return null;
+  // END avoiding
 
   if (cards.length === 0) {
     return (

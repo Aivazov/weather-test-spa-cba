@@ -13,8 +13,8 @@ type Props = {};
 
 const CityCardDetails = (props: Props) => {
   const params = useParams();
-
   const cardId = params?.id as string;
+
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
   // console.log('card', card);
