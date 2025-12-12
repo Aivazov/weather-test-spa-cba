@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux';
 
 type Props = {};
 
+const fontSizeSubtitle = { fontSize: { xs: '16px', sm: '22px', md: '24px' } };
+const fontSizeData = { fontSize: { xs: '20px', sm: '22px', md: '24px' } };
+
 const CityCardDetails = (props: Props) => {
   const params = useParams();
 
@@ -53,7 +56,7 @@ const CityCardDetails = (props: Props) => {
         )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-          <Typography variant='h2' component='div' sx={{ fontWeight: 'light' }}>
+          <Typography variant='h3' component='div' sx={{ fontWeight: 'light' }}>
             {card.temperature ? Math.round(card.temperature) : '--'}°C
           </Typography>
         </Box>
@@ -74,10 +77,10 @@ const CityCardDetails = (props: Props) => {
               borderRadius: 2,
             }}
           >
-            <Typography variant='h6' color='text.secondary'>
+            <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Відчувається як
             </Typography>
-            <Typography variant='h4'>
+            <Typography sx={fontSizeData}>
               {card.feelsLike ? Math.round(card.feelsLike) : '--'}°C
             </Typography>
           </Box>
@@ -90,10 +93,10 @@ const CityCardDetails = (props: Props) => {
               borderRadius: 2,
             }}
           >
-            <Typography variant='h6' color='text.secondary'>
+            <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Вологість
             </Typography>
-            <Typography variant='h4'>
+            <Typography sx={fontSizeData}>
               {card.humidity ? `${card.humidity}%` : '--'}
             </Typography>
           </Box>
@@ -105,10 +108,10 @@ const CityCardDetails = (props: Props) => {
               borderRadius: 2,
             }}
           >
-            <Typography variant='h6' color='text.secondary'>
+            <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Тиск, мм
             </Typography>
-            <Typography variant='h4'>
+            <Typography sx={fontSizeData}>
               {card.pressure ? `${card.pressure}` : '--'}
             </Typography>
           </Box>
@@ -121,10 +124,10 @@ const CityCardDetails = (props: Props) => {
               borderRadius: 2,
             }}
           >
-            <Typography variant='h6' color='text.secondary'>
+            <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Вітер, км/г
             </Typography>
-            <Typography variant='h4'>
+            <Typography sx={fontSizeData}>
               {card.windSpeed
                 ? `${Math.floor(card.windSpeed * 3.6 * 10) / 10}`
                 : '--'}

@@ -108,7 +108,7 @@ const CardDetailPage = () => {
             onClick={() => router.push('/')}
             sx={{ mb: 3 }}
           >
-            Назад до списка
+            Назад
           </Button>
           <Button
             variant='outlined'
