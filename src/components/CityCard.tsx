@@ -45,14 +45,14 @@ const CityCard = (props: Props) => {
     condition,
     country,
     icon,
-    lat,
-    lon,
-    state,
+    // lat,
+    // lon,
+    // state,
     lightMode,
   } = props;
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  //avoiding hydration
+  //avoiding hydration fail
   const safeIcon = icon ?? '01d';
   const safeTemp = Math.round(temperature) ?? '--';
   const safeHumidity = humidity ?? '--';
@@ -79,7 +79,9 @@ const CityCard = (props: Props) => {
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
       <Card
         sx={{
-          maxWidth: 300,
+          width: 200,
+          display: 'flex',
+          flexDirection: 'column',
           border: '1px solid #58595c',
           borderRadius: '20px',
           cursor: 'pointer',
@@ -93,7 +95,7 @@ const CityCard = (props: Props) => {
           image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
           title='weather icon'
         />
-        <CardContent>
+        <CardContent sx={{ flexGrow: 1 }}>
           {city && country && (
             <Typography gutterBottom variant='h5' component='div'>
               {city}

@@ -6,6 +6,8 @@ const loadState = () => {
   try {
     const serializedCards = localStorage.getItem('weatherCards');
     if (!serializedCards) return undefined;
+    console.log('serializedCards Store parse', JSON.parse(serializedCards));
+
     return {
       weather: {
         cards: JSON.parse(serializedCards),

@@ -73,20 +73,18 @@ const SearchBar = (props: Props) => {
     (state: any) => state.weather
   );
 
-  // RTK Query хук для получения погоды
   const {
     data: weatherData,
     isLoading: isLoadingWeather,
     error: weatherError,
   } = useGetCurrentWeatherQuery(
     currentWeatherQuery,
-    { skip: !currentWeatherQuery } // Не выполнять запрос, если currentWeatherQuery пустой
+    { skip: !currentWeatherQuery } // no query if currentWeatherQuery is empty
   );
 
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  // Эффект для обработки полученных данных погоды через RTK Query
   useEffect(() => {
     if (weatherData && !isLoadingWeather && !weatherError) {
       dispatch(
@@ -99,6 +97,7 @@ const SearchBar = (props: Props) => {
           pressure: weatherData.main.pressure,
           windSpeed: weatherData.wind.speed,
           windDeg: weatherData.wind.deg,
+          // id: weatherData.weather[0].id,
           description: weatherData.weather[0].description,
           condition: weatherData.weather[0].main,
           icon: weatherData.weather[0].icon,
@@ -106,10 +105,10 @@ const SearchBar = (props: Props) => {
           country: weatherData.sys.country,
           lat: weatherData.coord.lat,
           lon: weatherData.coord.lon,
-          state: undefined, // RTK Query doesn't provide state
+          state: undefined,
         })
       );
-      console.log('weatherData', weatherData);
+      // console.log('weatherData Searchbar', weatherData);
 
       setCurrentWeatherQuery(null);
     }
@@ -193,12 +192,7 @@ const SearchBar = (props: Props) => {
       />
 
       {showSuggestions && (cities.length > 0 || isLoadingCities) && (
-        <div
-          ref={suggestionsRef}
-          // className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto dark:bg-gray-800 dark:border-gray-600'
-          className={`${styles.suggestions} dark`}
-          // className={styles.suggestions}
-        >
+        <div ref={suggestionsRef} className={styles.suggestions}>
           {isLoadingCities ? (
             <div className={styles.loadingText}>Пошук...</div>
           ) : (
@@ -206,8 +200,7 @@ const SearchBar = (props: Props) => {
               <div
                 key={index}
                 onClick={() => handleCitySelect(city)}
-                // className='px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 dark:text-white'
-                className={`${styles.suggestionItem} dark`}
+                className={styles.suggestionItem}
               >
                 {city.state
                   ? `${city.name}, ${city.state}, ${city.country}`

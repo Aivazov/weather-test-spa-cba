@@ -17,7 +17,7 @@ const CityCardDetails = (props: Props) => {
   const cardId = params?.id as string;
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
-  console.log('card', card);
+  // console.log('card', card);
 
   return (
     <Card sx={{ maxWidth: 600, width: '100%' }}>

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface WeatherCard {
+  // id: number;
   id: string;
   temperature: number | null;
   humidity: number | null;
@@ -30,6 +31,7 @@ const weatherSlice = createSlice({
   reducers: {
     addWeatherCard: (state, action) => {
       const newCard: WeatherCard = {
+        // id: action.payload.id,
         id: Date.now().toString(),
         temperature: action.payload.temperature,
         humidity: action.payload.humidity,
@@ -48,7 +50,16 @@ const weatherSlice = createSlice({
         lon: action.payload.lon,
         state: action.payload.state,
       };
-      state.cards.push(newCard);
+      const cardExists = state.cards.some(
+        (card) => card.lat === newCard.lat && card.lon === newCard.lon
+      );
+      // const cardExists = state.cards.some((card) => card.id === newCard.id);
+      console.log('newCard', newCard);
+      // console.log('cardExists', cardExists);
+
+      if (!cardExists) {
+        state.cards.push(newCard);
+      }
     },
     deleteWeatherCard: (state, action) => {
       state.cards = state.cards.filter((card) => card.id !== action.payload);
