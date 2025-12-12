@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -32,7 +32,7 @@ const CardDetailPage = () => {
 
   const [trigger, { isFetching }] = useLazyGetCurrentWeatherQuery();
 
-  // waiting for the Client to avoid hydration
+  // waiting for the Client Render to avoid hydration
   const [isClient, setIsClient] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
 
@@ -42,12 +42,12 @@ const CardDetailPage = () => {
 
   useEffect(() => {
     if (isClient && !weatherData) {
-      // Загрузка данных погоды
+      // loading weather data
     }
   }, [isClient, weatherData]);
 
   if (!isClient) {
-    return null; // Не рендерим компонент на сервере
+    return null;
   }
   // END avoiding
 
