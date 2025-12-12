@@ -24,7 +24,7 @@
 
 1. Клонуйте репозиторій:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Aivazov/weather-test-spa-cba.git
 cd weather-app
 ```
 
