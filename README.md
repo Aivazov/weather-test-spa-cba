@@ -46,7 +46,7 @@ WEATHER_API_KEY=your_openweathermap_api_key
 npm run dev
 ```
 
-Відкрийте [http://localhost:3000] у браузері.
+Відкрийте [http://localhost:3000](http://localhost:3000) у браузері.
 
 ## Тестування
 
