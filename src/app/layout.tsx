@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import ReduxProvider from './ReduxProvider';
 import './globals.css';
-import WeatherInitializer from '@/components/WeatherInitializer';
-import LocalStorageSync from '@/components/LocalStorageSync';
+// import WeatherInitializer from '@/components/WeatherInitializer';
+// import LocalStorageSync from '@/components/LocalStorageSync';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

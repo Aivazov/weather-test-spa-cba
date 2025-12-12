@@ -1,0 +1,47 @@
+.searchBarContainer {
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  max-height: 240px;
+  overflow-y: auto;
+  background-color: #1e2939;
+  border-color: #4b5565;
+
+  &.light {
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+  }
+}
+
+.suggestionItem {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #374151;
+    color: #fff;
+  }
+
+  &.light:hover {
+    background-color: #f3f4f6;
+  }
+}
+
+.loadingText {
+  padding: 8px 16px;
+  color: #d1d5db;
+
+  &.light {
+    color: #6b7280;
+  }
+}

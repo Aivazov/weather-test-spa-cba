@@ -1,12 +1,15 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { useParams } from 'next/navigation';
-// import React from 'react';
 import { useSelector } from 'react-redux';
+import {
+  cardMediaStyles,
+  boxMainStyles,
+  boxCommonStyles,
+  fontSizeSubtitle,
+  fontSizeData,
+} from './cityCardDetailsStyles';
 
 type Props = {};
-
-const fontSizeSubtitle = { fontSize: { xs: '16px', sm: '22px', md: '24px' } };
-const fontSizeData = { fontSize: { xs: '20px', sm: '22px', md: '24px' } };
 
 const CityCardDetails = (props: Props) => {
   const params = useParams();
@@ -19,12 +22,7 @@ const CityCardDetails = (props: Props) => {
   return (
     <Card sx={{ maxWidth: 600, width: '100%' }}>
       <CardMedia
-        sx={{
-          height: 200,
-          maxWidth: 200,
-          margin: '0 auto',
-          objectFit: 'contain',
-        }}
+        sx={cardMediaStyles}
         image={
           card.icon
             ? `https://openweathermap.org/img/wn/${card.icon}@2x.png`
@@ -61,22 +59,8 @@ const CityCardDetails = (props: Props) => {
           </Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 3,
-            mb: 3,
-          }}
-        >
-          <Box
-            sx={{
-              textAlign: 'center',
-              p: 2,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-            }}
-          >
+        <Box sx={boxMainStyles}>
+          <Box sx={boxCommonStyles}>
             <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Відчувається як
             </Typography>
@@ -85,14 +69,7 @@ const CityCardDetails = (props: Props) => {
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              textAlign: 'center',
-              p: 2,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-            }}
-          >
+          <Box sx={boxCommonStyles}>
             <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Вологість
             </Typography>
@@ -100,14 +77,7 @@ const CityCardDetails = (props: Props) => {
               {card.humidity ? `${card.humidity}%` : '--'}
             </Typography>
           </Box>
-          <Box
-            sx={{
-              textAlign: 'center',
-              p: 2,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-            }}
-          >
+          <Box sx={boxCommonStyles}>
             <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Тиск, мм
             </Typography>
@@ -116,14 +86,7 @@ const CityCardDetails = (props: Props) => {
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              textAlign: 'center',
-              p: 2,
-              bgcolor: 'background.paper',
-              borderRadius: 2,
-            }}
-          >
+          <Box sx={boxCommonStyles}>
             <Typography color='text.secondary' sx={fontSizeSubtitle}>
               Вітер, км/г
             </Typography>
@@ -136,14 +99,7 @@ const CityCardDetails = (props: Props) => {
           </Box>
         </Box>
 
-        <Box
-          sx={{
-            textAlign: 'center',
-            p: 3,
-            bgcolor: 'background.paper',
-            borderRadius: 2,
-          }}
-        >
+        <Box sx={{ ...boxCommonStyles, p: 3 }}>
           <Typography variant='h6' color='text.secondary' gutterBottom>
             Погодні умови
           </Typography>

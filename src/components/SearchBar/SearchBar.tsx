@@ -10,6 +10,7 @@ import {
 } from '@/redux/weatherSlice';
 import { TextField } from '@mui/material';
 import { useGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
+import styles from './SearchBar.module.scss';
 
 interface City {
   name: string;
@@ -105,10 +106,9 @@ const SearchBar = (props: Props) => {
           country: weatherData.sys.country,
           lat: weatherData.coord.lat,
           lon: weatherData.coord.lon,
-          state: undefined, // RTK Query не предоставляет state
+          state: undefined, // RTK Query doesn't provide state
         })
       );
-      // Очищаем запрос после успешного добавления
       console.log('weatherData', weatherData);
 
       setCurrentWeatherQuery(null);
@@ -178,7 +178,7 @@ const SearchBar = (props: Props) => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className='relative'>
+    <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
       <TextField
         id='filled-basic'
         label='Введіть назву міста...'
@@ -195,18 +195,19 @@ const SearchBar = (props: Props) => {
       {showSuggestions && (cities.length > 0 || isLoadingCities) && (
         <div
           ref={suggestionsRef}
-          className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto dark:bg-gray-800 dark:border-gray-600'
+          // className='absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto dark:bg-gray-800 dark:border-gray-600'
+          className={`${styles.suggestions} dark`}
+          // className={styles.suggestions}
         >
           {isLoadingCities ? (
-            <div className='px-4 py-2 text-gray-500 dark:text-gray-400'>
-              Пошук...
-            </div>
+            <div className={styles.loadingText}>Пошук...</div>
           ) : (
             cities.map((city: City, index: number) => (
               <div
                 key={index}
                 onClick={() => handleCitySelect(city)}
-                className='px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 dark:text-white'
+                // className='px-4 py-2 hover:bg-gray-100 cursor-pointer dark:hover:bg-gray-700 dark:text-white'
+                className={`${styles.suggestionItem} dark`}
               >
                 {city.state
                   ? `${city.name}, ${city.state}, ${city.country}`

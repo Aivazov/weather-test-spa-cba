@@ -15,7 +15,7 @@ import {
   CircularProgress,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CityCardDetails from '@/components/CityCardDetails';
+import CityCardDetails from '@/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/redux/weatherSlice';
 import { useLazyGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
 
@@ -59,12 +59,7 @@ const CardDetailPage = () => {
     );
   }
 
-  const handleDetailsUpdate = () => {
-    dispatch(updateWeatherCard(cardId));
-    console.log('Updated');
-  };
-
-  const handleUpdate = async () => {
+  const handleDetailsUpdate = async () => {
     try {
       const res = await trigger({ lat: card.lat, lon: card.lon }).unwrap();
 
@@ -86,8 +81,8 @@ const CardDetailPage = () => {
           city: res.name,
         })
       );
-    } catch (err) {
-      console.error('Помилка оновлення картки:', err);
+    } catch (error) {
+      console.error('Помилка оновлення картки:', error);
     }
   };
 
@@ -113,15 +108,11 @@ const CardDetailPage = () => {
           <Button
             variant='outlined'
             loading={isFetching}
-            loadingIndicator={
-              <CircularProgress size={20} color='secondary' /> // цвет спиннера
-            }
-            // startIcon={<ArrowBackIcon />}
-            onClick={handleUpdate}
+            loadingIndicator={<CircularProgress size={20} color='secondary' />}
+            onClick={handleDetailsUpdate}
             sx={{ mb: 3 }}
           >
             Оновити
-            {/* {isFetching ? 'Оновлення...' : 'Оновити'} */}
           </Button>
         </Box>
 
