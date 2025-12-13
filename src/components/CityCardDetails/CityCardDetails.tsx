@@ -17,6 +17,29 @@ const CityCardDetails = (props: Props) => {
 
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
+
+  const commonOptions = [
+    {
+      title: 'Відчувається як',
+      text: `${Math.round(card?.feelsLike)} °C`,
+    },
+    {
+      title: 'Вологість',
+      text: `${card?.humidity ? `${card?.humidity}%` : '--'}`,
+    },
+    {
+      title: 'Тиск, мм',
+      text: `${card?.pressure ? `${Math.round(card?.pressure)}` : '--'}`,
+    },
+    {
+      title: 'Вітер',
+      text: `${
+        card?.windSpeed
+          ? `${Math.round(card?.windSpeed * 3.6 * 10) / 10}`
+          : '--'
+      }  км/г`,
+    },
+  ];
   // console.log('card', card);
 
   return (
@@ -59,44 +82,16 @@ const CityCardDetails = (props: Props) => {
           </Typography>
         </Box>
 
+        {/* Main Options List */}
         <Box sx={boxMainStyles}>
-          <Box sx={boxCommonStyles}>
-            <Typography color='text.secondary' sx={fontSizeSubtitle}>
-              Відчувається як
-            </Typography>
-            <Typography sx={fontSizeData}>
-              {card.feelsLike ? Math.round(card.feelsLike) : '--'}°C
-            </Typography>
-          </Box>
-
-          <Box sx={boxCommonStyles}>
-            <Typography color='text.secondary' sx={fontSizeSubtitle}>
-              Вологість
-            </Typography>
-            <Typography sx={fontSizeData}>
-              {card.humidity ? `${card.humidity}%` : '--'}
-            </Typography>
-          </Box>
-          <Box sx={boxCommonStyles}>
-            <Typography color='text.secondary' sx={fontSizeSubtitle}>
-              Тиск, мм
-            </Typography>
-            <Typography sx={fontSizeData}>
-              {card.pressure ? `${card.pressure}` : '--'}
-            </Typography>
-          </Box>
-
-          <Box sx={boxCommonStyles}>
-            <Typography color='text.secondary' sx={fontSizeSubtitle}>
-              Вітер, км/г
-            </Typography>
-            <Typography sx={fontSizeData}>
-              {card.windSpeed
-                ? `${Math.floor(card.windSpeed * 3.6 * 10) / 10}`
-                : '--'}
-              {/* , {card.windDeg ? `${card.windDeg}` : '--'} */}
-            </Typography>
-          </Box>
+          {commonOptions.map((item, idx) => (
+            <Box key={item.title} sx={boxCommonStyles}>
+              <Typography color='text.secondary' sx={fontSizeSubtitle}>
+                {item.title}
+              </Typography>
+              <Typography sx={fontSizeData}>{item.text}</Typography>
+            </Box>
+          ))}
         </Box>
 
         <Box sx={{ ...boxCommonStyles, p: 3 }}>
@@ -104,7 +99,7 @@ const CityCardDetails = (props: Props) => {
             Погодні умови
           </Typography>
           <Typography variant='h4' sx={{ textTransform: 'capitalize' }}>
-            {card.description || 'Неизвестно'}
+            {card.description ? card.description : 'Невідомо'}
           </Typography>
         </Box>
       </CardContent>

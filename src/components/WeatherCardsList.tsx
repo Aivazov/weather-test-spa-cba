@@ -1,16 +1,5 @@
-// import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  // Button,
-  // Card,
-  // CardActions,
-  // CardContent,
-  // CardMedia,
-  // createTheme,
-  // ThemeProvider,
-  Typography,
-  Box,
-} from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import CityCard from './CityCard';
 import { useEffect, useState } from 'react';
 import { setWeatherCards } from '@/redux/weatherSlice';

@@ -5,9 +5,6 @@ import { useParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button,
-  Card,
-  CardContent,
-  CardMedia,
   createTheme,
   ThemeProvider,
   Typography,
@@ -17,7 +14,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CityCardDetails from '@/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/redux/weatherSlice';
-import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
+import { useLazyGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -32,7 +29,7 @@ const CardDetailPage = () => {
 
   const [trigger, { isFetching }] = useLazyGetCurrentWeatherQuery();
 
-  // waiting for the Client Render to avoid hydration
+  // waiting for the Client Render to avoid hydration error
   const [isClient, setIsClient] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
 

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
+import fetchWeatherData from '@/pages/api/fetchWeatherData';
 
 // Mock SCSS modules
 jest.mock('@/components/Header/Header.module.scss', () => ({
@@ -14,7 +14,7 @@ jest.mock('@/components/Header/Header.module.scss', () => ({
 // Mock SearchBar component
 jest.mock('@/components/SearchBar/SearchBar', () => {
   return function MockSearchBar() {
-    return <div data-testid="search-bar">Search Bar Component</div>;
+    return <div data-testid='search-bar'>Search Bar Component</div>;
   };
 });
 
@@ -44,11 +44,7 @@ const createTestStore = (initialState?: any) => {
 const renderWithProviders = (component: React.ReactElement, store?: any) => {
   const testStore = store || createTestStore();
   return {
-    ...render(
-      <Provider store={testStore}>
-        {component}
-      </Provider>
-    ),
+    ...render(<Provider store={testStore}>{component}</Provider>),
     store: testStore,
   };
 };

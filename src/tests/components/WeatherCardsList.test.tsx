@@ -4,7 +4,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
+import fetchWeatherData from '@/pages/api/fetchWeatherData';
 
 // Mock next/navigation for router.push
 jest.mock('next/navigation', () => ({
@@ -15,7 +15,12 @@ jest.mock('next/navigation', () => ({
 
 // Mock CityCard component
 jest.mock('@/components/CityCard', () => {
-  return function MockCityCard({ city, temperature, humidity, condition }: any) {
+  return function MockCityCard({
+    city,
+    temperature,
+    humidity,
+    condition,
+  }: any) {
     return (
       <div data-testid={`city-card-${city}`}>
         <div>City: {city}</div>
@@ -62,11 +67,7 @@ const createTestStore = (initialState?: any) => {
 const renderWithProviders = (component: React.ReactElement, store?: any) => {
   const testStore = store || createTestStore();
   return {
-    ...render(
-      <Provider store={testStore}>
-        {component}
-      </Provider>
-    ),
+    ...render(<Provider store={testStore}>{component}</Provider>),
     store: testStore,
   };
 };
@@ -79,7 +80,9 @@ describe('WeatherCardsList', () => {
   it('renders empty state message when no cards are present', () => {
     renderWithProviders(<WeatherCardsList />);
 
-    expect(screen.getByText('Введіть назву міста в поле пошуку вище')).toBeInTheDocument();
+    expect(
+      screen.getByText('Введіть назву міста в поле пошуку вище')
+    ).toBeInTheDocument();
   });
 
   it('renders weather cards when cards are present', () => {
@@ -148,7 +151,9 @@ describe('WeatherCardsList', () => {
     // Should not throw error and show empty state
     renderWithProviders(<WeatherCardsList />);
 
-    expect(screen.getByText('Введіть назву міста в поле пошуку вище')).toBeInTheDocument();
+    expect(
+      screen.getByText('Введіть назву міста в поле пошуку вище')
+    ).toBeInTheDocument();
   });
 
   it('renders nothing during hydration (mounted = false)', () => {

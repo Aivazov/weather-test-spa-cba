@@ -55,9 +55,7 @@ const weatherSlice = createSlice({
       const cardExists = state.cards.some(
         (card) => card.lat === newCard.lat && card.lon === newCard.lon
       );
-      // const cardExists = state.cards.some((card) => card.id === newCard.id);
       console.log('newCard', newCard);
-      // console.log('cardExists', cardExists);
 
       if (!cardExists) {
         state.cards.push(newCard);
@@ -103,7 +101,7 @@ const weatherSlice = createSlice({
           'cards'
         );
 
-        // Обновляем каждую карточку индивидуально
+        // Updating each card individually
         action.payload.forEach((updatedCard: any) => {
           const idx = state.cards.findIndex(
             (card) => card.id === updatedCard.id

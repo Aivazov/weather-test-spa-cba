@@ -26,12 +26,12 @@ const fetchWeatherData = createApi({
       },
       transformResponse: (response) => {
         const today = new Date().getDate();
-        console.log('forecast response', response);
+        // console.log('forecast response', response);
 
         if (response.list) {
           return response.list.filter((item: any) => {
-            const d = new Date(item.dt * 1000).getDate();
-            return d === today;
+            const day = new Date(item.dt * 1000).getDate();
+            return day === today;
           });
         }
         return [];

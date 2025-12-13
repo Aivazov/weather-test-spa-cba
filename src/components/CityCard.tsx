@@ -10,7 +10,7 @@ import {
   ThemeProvider,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { deleteWeatherCard } from '@/redux/weatherSlice';
@@ -56,7 +56,7 @@ const CityCard = (props: Props) => {
   const safeIcon = icon ?? '01d';
   const safeTemp = Math.round(temperature) ?? '--';
   const safeHumidity = humidity ?? '--';
-  const safeCondition = condition ?? 'невiдомо';
+  const safeCondition = condition ?? 'невідомо';
 
   const handleDeleteClick = () => {
     setDeleteDialogOpen(true);

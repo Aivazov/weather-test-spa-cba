@@ -1,5 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
-import React from 'react'
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from '@mui/material';
 
 type Props = {
   open: boolean;
@@ -8,7 +14,7 @@ type Props = {
   text: string;
   title: string;
   approveBtn: string;
-}
+};
 
 const Modal = (props: Props) => {
   const { title, text, approveBtn, open, onCloseModal, onConfirmModal } = props;
@@ -16,26 +22,22 @@ const Modal = (props: Props) => {
     <Dialog
       open={open}
       onClose={onCloseModal}
-      aria-labelledby="delete-dialog-title"
+      aria-labelledby='delete-dialog-title'
     >
-      <DialogTitle id="delete-dialog-title">
-        {title}
-      </DialogTitle>
+      <DialogTitle id='delete-dialog-title'>{title}</DialogTitle>
       <DialogContent>
-        <Typography>
-          {text}
-        </Typography>
+        <Typography>{text}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onCloseModal} color="primary">
+        <Button onClick={onCloseModal} color='primary'>
           Отмена
         </Button>
-        <Button onClick={onConfirmModal} color="error" variant="contained">
+        <Button onClick={onConfirmModal} color='error' variant='contained'>
           {approveBtn}
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

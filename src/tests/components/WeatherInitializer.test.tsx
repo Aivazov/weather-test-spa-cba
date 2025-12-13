@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
+import fetchWeatherData from '@/pages/api/fetchWeatherData';
 import WeatherInitializer from '@/components/WeatherInitializer';
 
 // Mock fetch
@@ -37,11 +37,7 @@ const createTestStore = (initialState?: any) => {
 const renderWithProviders = (component: React.ReactElement, store?: any) => {
   const testStore = store || createTestStore();
   return {
-    ...render(
-      <Provider store={testStore}>
-        {component}
-      </Provider>
-    ),
+    ...render(<Provider store={testStore}>{component}</Provider>),
     store: testStore,
   };
 };

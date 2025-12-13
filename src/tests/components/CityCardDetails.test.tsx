@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
+import fetchWeatherData from '@/pages/api/fetchWeatherData';
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -49,11 +49,7 @@ const createTestStore = (initialState?: any) => {
 const renderWithProviders = (component: React.ReactElement, store?: any) => {
   const testStore = store || createTestStore();
   return {
-    ...render(
-      <Provider store={testStore}>
-        {component}
-      </Provider>
-    ),
+    ...render(<Provider store={testStore}>{component}</Provider>),
     store: testStore,
   };
 };
@@ -97,7 +93,9 @@ describe('CityCardDetails', () => {
     renderWithProviders(<CityCardDetails />, store);
 
     expect(screen.getByText('Kyiv, Kyiv Oblast, UA')).toBeInTheDocument();
-    expect(screen.getByText('Координати: 50.4501, 30.5234')).toBeInTheDocument();
+    expect(
+      screen.getByText('Координати: 50.4501, 30.5234')
+    ).toBeInTheDocument();
     expect(screen.getByText('20°C')).toBeInTheDocument();
     expect(screen.getByText('Відчувається як')).toBeInTheDocument();
     expect(screen.getByText('18°C')).toBeInTheDocument();
@@ -196,7 +194,9 @@ describe('CityCardDetails', () => {
 
     renderWithProviders(<CityCardDetails />, store);
 
-    expect(screen.getByText('Координати: 50.4501, 30.5235')).toBeInTheDocument();
+    expect(
+      screen.getByText('Координати: 50.4501, 30.5235')
+    ).toBeInTheDocument();
   });
 
   it('handles missing optional fields gracefully', () => {
@@ -307,7 +307,9 @@ describe('CityCardDetails', () => {
 
     renderWithProviders(<CityCardDetails />, store);
 
-    const card = screen.getByRole('img', { hidden: true }).closest('.MuiPaper-root');
+    const card = screen
+      .getByRole('img', { hidden: true })
+      .closest('.MuiPaper-root');
     expect(card).toBeInTheDocument();
     expect(card).toHaveStyle({ maxWidth: '600px' });
   });

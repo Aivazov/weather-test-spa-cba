@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import weatherReducer from './weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
+import fetchWeatherData from '@/pages/api/fetchWeatherData';
 
 const loadState = () => {
-  // Проверяем, что мы на клиенте (localStorage доступен)
+  // check that we are on Client side
   if (typeof window === 'undefined') {
     console.log('loadState: Running on server, skipping localStorage');
     return undefined;
@@ -31,7 +31,7 @@ const loadState = () => {
       },
     };
   } catch (error) {
-    console.log('Error loading from the localStorage', error);
+    console.error('Error loading from the localStorage', error);
     return undefined;
   }
 };
@@ -46,11 +46,9 @@ const store = configureStore({
   preloadedState: loadState(),
 });
 
-// Функция для обновления всех карточек погоды из localStorage
 export const refreshAllWeatherCards = async () => {
   console.log('refreshAllWeatherCards: Starting...');
 
-  // Проверяем, что мы на клиенте
   if (typeof window === 'undefined') {
     console.log('refreshAllWeatherCards: Running on server, skipping');
     return;
@@ -85,7 +83,7 @@ if (typeof window !== 'undefined') {
       const state = store.getState();
       localStorage.setItem('weatherCards', JSON.stringify(state.weather.cards));
     } catch (error) {
-      console.log('Error saving in the localStorage', error);
+      console.error('Error saving in the localStorage', error);
     }
   });
 }

@@ -1,12 +1,10 @@
-// components/WeatherInitializer.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { refreshAllWeatherCards } from '@/redux/store';
 
 export default function WeatherInitializer() {
-  const dispatch = useDispatch();
   const [initialized, setInitialized] = useState(false);
   const cards = useSelector((state: any) => state.weather.cards);
 
@@ -18,11 +16,9 @@ export default function WeatherInitializer() {
       initialized
     );
 
-    // Запускаем обновление только один раз, когда карточки загружены из localStorage
+    // initializing update before getting cards from the localStorage
     if (!initialized && cards.length > 0) {
-      console.log(
-        'WeatherInitializer: Found cards in store, starting refresh...'
-      );
+      console.log('WeatherInitializer: Cards found, updating');
       refreshAllWeatherCards();
       setInitialized(true);
     }
