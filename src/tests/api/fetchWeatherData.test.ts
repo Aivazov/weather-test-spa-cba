@@ -15,7 +15,7 @@ jest.mock('@/lib/fetchWeatherData', () => ({
 import {
   useGetCurrentWeatherQuery,
   useGetHourlyForecastQuery,
-} from '@/pages/api/fetchWeatherData';
+} from '@/lib/fetchWeatherData';
 
 describe('Weather API tests', () => {
   beforeEach(() => {

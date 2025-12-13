@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import weatherReducer from './weatherSlice';
-import fetchWeatherData from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 
 const loadState = () => {
   // check that we are on Client side

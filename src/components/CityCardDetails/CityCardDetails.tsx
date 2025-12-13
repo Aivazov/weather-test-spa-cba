@@ -35,9 +35,9 @@ const CityCardDetails = (props: Props) => {
       title: 'Вітер',
       text: `${
         card?.windSpeed
-          ? `${Math.round(card?.windSpeed * 3.6 * 10) / 10}`
+          ? `${Math.round(card?.windSpeed * 3.6 * 10) / 10} км/г`
           : '--'
-      }  км/г`,
+      }`,
     },
   ];
   // console.log('card', card);

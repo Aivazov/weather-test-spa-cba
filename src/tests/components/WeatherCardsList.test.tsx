@@ -4,7 +4,7 @@ import { render, screen, waitFor, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 
 // Mock next/navigation for router.push
 jest.mock('next/navigation', () => ({

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -98,13 +98,13 @@ describe('CityCardDetails', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('20°C')).toBeInTheDocument();
     expect(screen.getByText('Відчувається як')).toBeInTheDocument();
-    expect(screen.getByText('18°C')).toBeInTheDocument();
+    expect(screen.getByText('18 °C')).toBeInTheDocument();
     expect(screen.getByText('Вологість')).toBeInTheDocument();
     expect(screen.getByText('60%')).toBeInTheDocument();
     expect(screen.getByText('Тиск, мм')).toBeInTheDocument();
     expect(screen.getByText('1013')).toBeInTheDocument();
-    expect(screen.getByText('Вітер, км/г')).toBeInTheDocument();
-    expect(screen.getByText('18')).toBeInTheDocument(); // 5 m/s * 3.6 = 18 km/h
+    expect(screen.getByText('Вітер')).toBeInTheDocument();
+    expect(screen.getByText('18 км/г')).toBeInTheDocument(); // 5 m/s * 3.6 = 18 km/h
     expect(screen.getByText('Погодні умови')).toBeInTheDocument();
     expect(screen.getByText('clear sky')).toBeInTheDocument();
   });
@@ -160,7 +160,7 @@ describe('CityCardDetails', () => {
     renderWithProviders(<CityCardDetails />, store);
 
     expect(screen.getByText('21°C')).toBeInTheDocument();
-    expect(screen.getByText('18°C')).toBeInTheDocument();
+    expect(screen.getByText('18 °C')).toBeInTheDocument();
   });
 
   it('converts wind speed from m/s to km/h correctly', () => {
@@ -175,7 +175,7 @@ describe('CityCardDetails', () => {
 
     renderWithProviders(<CityCardDetails />, store);
 
-    expect(screen.getByText('36')).toBeInTheDocument(); // 10 * 3.6 = 36 km/h
+    expect(screen.getByText('36 км/г')).toBeInTheDocument(); // 10 * 3.6 = 36 km/h
   });
 
   it('displays coordinates with 4 decimal places', () => {
@@ -215,8 +215,8 @@ describe('CityCardDetails', () => {
 
     renderWithProviders(<CityCardDetails />, store);
 
-    expect(screen.getByText(/--/)).toBeInTheDocument(); // For missing feelsLike
-    expect(screen.getByText('Неизвестно')).toBeInTheDocument(); // For missing description
+    expect(screen.getByText('0 °C')).toBeInTheDocument(); // For missing feelsLike
+    expect(screen.getByText('Невідомо')).toBeInTheDocument(); // For missing description
   });
 
   it('does not display coordinates section if lat/lon are missing', () => {

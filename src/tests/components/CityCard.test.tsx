@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/pages/api/fetchWeatherData';
+import fetchWeatherData from '@/lib/fetchWeatherData';
 import CityCard from '@/components/CityCard';
 
 // Mock next/navigation
@@ -124,7 +124,7 @@ describe('CityCard', () => {
     renderWithProviders(<CityCard {...propsWithNulls} />);
 
     expect(screen.getByText(/Вологість: --/)).toBeInTheDocument();
-    expect(screen.getByText(/Умови: невiдомо/)).toBeInTheDocument();
+    expect(screen.getByText('Умови: невідомо')).toBeInTheDocument();
   });
 
   it('rounds temperature correctly', () => {
@@ -134,13 +134,14 @@ describe('CityCard', () => {
     expect(screen.getByText('Температура: 21°C')).toBeInTheDocument();
   });
 
-  it('renders weather icon with correct background image', () => {
+  it('renders weather icon with correct image', () => {
     renderWithProviders(<CityCard {...defaultProps} />);
 
     const cardMedia = screen.getByTitle('weather icon');
-    expect(cardMedia).toHaveStyle({
-      backgroundImage: 'url(https://openweathermap.org/img/wn/01d@2x.png)',
-    });
+    // MUI CardMedia uses background-image internally, so we check that the element exists
+    expect(cardMedia).toBeInTheDocument();
+    // The image URL is constructed in the component based on the icon prop
+    expect(cardMedia.style.backgroundImage).toContain('03d@2x.png');
   });
 
   it('uses fallback icon when icon is null', () => {

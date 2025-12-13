@@ -9,7 +9,7 @@ import {
   addWeatherCard,
 } from '@/redux/weatherSlice';
 import { TextField } from '@mui/material';
-import { useGetCurrentWeatherQuery } from '@/pages/api/fetchWeatherData';
+import { useGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
 import styles from './SearchBar.module.scss';
 
 interface City {
