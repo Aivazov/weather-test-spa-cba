@@ -64,9 +64,11 @@ const textFieldStyles = {
 const SearchBar = (props: Props) => {
   const [inputValue, setInputValue] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [currentWeatherQuery, setCurrentWeatherQuery] = useState<
-    string | { lat: number; lon: number } | null
-  >(null);
+  const [currentWeatherQuery, setCurrentWeatherQuery] = useState<{
+    city?: string;
+    lat?: number;
+    lon?: number;
+  } | null>(null);
 
   const dispatch = useDispatch();
   const { cities, isLoadingCities } = useSelector(
