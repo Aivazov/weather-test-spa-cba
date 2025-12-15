@@ -155,7 +155,7 @@ const SearchBar = (props: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      setCurrentWeatherQuery(inputValue.trim());
+      setCurrentWeatherQuery({ city: inputValue.trim() });
       setShowSuggestions(false);
     }
   };
