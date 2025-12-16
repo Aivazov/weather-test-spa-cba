@@ -1,5 +1,3 @@
-// weatherSlice.test.ts
-// Mock the thunk actions for testing
 const mockLoadWeatherData = {
   pending: { type: 'weather/loadWeatherData/pending' },
   fulfilled: { type: 'weather/loadWeatherData/fulfilled', payload: [] },
@@ -30,12 +28,12 @@ import weatherSlice, {
 const reducer = weatherSlice;
 
 describe('Weather Slice', () => {
-const initialState = {
-  cards: [],
-  cities: [],
-  isLoadingCities: false,
-  isLoading: false,
-};
+  const initialState = {
+    cards: [],
+    cities: [],
+    isLoadingCities: false,
+    isLoading: false,
+  };
 
   it('should return the initial state', () => {
     expect(reducer(undefined, { type: undefined })).toEqual(initialState);
@@ -103,7 +101,7 @@ const initialState = {
       state = reducer(state, addWeatherCard(card2));
 
       expect(state.cards).toHaveLength(1);
-      expect(state.cards[0].temperature).toBe(20); // First card should remain
+      expect(state.cards[0].temperature).toBe(20);
     });
   });
 
@@ -131,7 +129,6 @@ const initialState = {
     });
 
     it('should not affect other cards when deleting', () => {
-      // Create cards with different IDs manually to avoid duplicate coordinate check
       const card1 = {
         id: 'card1',
         temperature: 20,
@@ -242,7 +239,7 @@ const initialState = {
         description: 'partly cloudy',
         condition: 'Clouds',
         icon: '02d',
-        city: 'Moscow', // Should preserve original data
+        city: 'Moscow',
         lat: 55.7558,
         lon: 37.6176,
       });
@@ -271,7 +268,7 @@ const initialState = {
 
       state = reducer(state, updateWeatherCard(updatedData));
 
-      expect(state.cards[0].temperature).toBe(20); // Should remain unchanged
+      expect(state.cards[0].temperature).toBe(20);
     });
   });
 

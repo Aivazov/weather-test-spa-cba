@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// Асинхронная операция для обновления данных для всех карт
+// refreshing request for all the cards
 export const refreshWeatherCards = createAsyncThunk(
   'weather/refreshWeatherCards',
   async (cards) => {
@@ -54,7 +54,7 @@ export const refreshWeatherCards = createAsyncThunk(
             `refreshWeatherCards thunk: Error updating ${card.city}:`,
             error
           );
-          return card; // Если не удалось обновить, оставляем старые данные
+          return card;
         }
       })
     );
@@ -68,5 +68,5 @@ export const refreshWeatherCards = createAsyncThunk(
   }
 );
 
-// Для обратной совместимости
+// for backward compatibility
 export const loadWeatherData = refreshWeatherCards;

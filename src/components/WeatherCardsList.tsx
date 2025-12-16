@@ -18,8 +18,6 @@ interface WeatherCard {
   state?: string;
 }
 
-// const darkTheme = createTheme({ palette: { mode: 'dark' } });
-
 const WeatherCardsList = () => {
   const { cards } = useSelector((state: any) => state.weather);
   const dispatch = useDispatch();

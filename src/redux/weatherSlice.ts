@@ -55,7 +55,7 @@ const weatherSlice = createSlice({
       const cardExists = state.cards.some(
         (card) => card.lat === newCard.lat && card.lon === newCard.lon
       );
-      console.log('newCard', newCard);
+      // console.log('newCard', newCard);
 
       if (!cardExists) {
         state.cards.push(newCard);
@@ -95,11 +95,11 @@ const weatherSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(refreshWeatherCards.fulfilled, (state, action) => {
-        console.log(
-          'weatherSlice: refreshWeatherCards.fulfilled with',
-          action.payload.length,
-          'cards'
-        );
+        // console.log(
+        //   'weatherSlice: refreshWeatherCards.fulfilled with',
+        //   action.payload.length,
+        //   'cards'
+        // );
 
         // Updating each card individually
         action.payload.forEach((updatedCard: any) => {
@@ -107,14 +107,14 @@ const weatherSlice = createSlice({
             (card) => card.id === updatedCard.id
           );
           if (idx !== -1) {
-            console.log(
-              `weatherSlice: Updating card ${updatedCard.city}: temp ${state.cards[idx].temperature} -> ${updatedCard.temperature}`
-            );
-            state.cards[idx] = { ...state.cards[idx], ...updatedCard };
+            // console.log(
+            //   `weatherSlice: Updating card ${updatedCard.city}: temp ${state.cards[idx].temperature} -> ${updatedCard.temperature}`
+            // );
+            // state.cards[idx] = { ...state.cards[idx], ...updatedCard };
           }
         });
         state.isLoading = false;
-        console.log('weatherSlice: Cards updated successfully');
+        // console.log('weatherSlice: Cards updated successfully');
       })
       .addCase(refreshWeatherCards.rejected, (state) => {
         state.isLoading = false;

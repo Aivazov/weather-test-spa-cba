@@ -1,7 +1,5 @@
-// fetchWeatherData.test.ts
 import { renderHook } from '@testing-library/react';
 
-// Мокаем RTK Query hooks
 const mockUseGetCurrentWeatherQuery = jest.fn();
 const mockUseGetHourlyForecastQuery = jest.fn();
 

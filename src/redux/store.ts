@@ -65,7 +65,7 @@ export const refreshAllWeatherCards = async () => {
     console.log('refreshAllWeatherCards: Found', cards.length, 'cards');
 
     if (cards.length > 0) {
-      // Динамический импорт для избежания циклических зависимостей
+      // dynamic import to avoid cyclic dependencies
       const { refreshWeatherCards } = await import('./loadWeatherThunk');
       console.log('refreshAllWeatherCards: Dispatching refreshWeatherCards...');
       const result = await store.dispatch(refreshWeatherCards(cards));
@@ -76,7 +76,7 @@ export const refreshAllWeatherCards = async () => {
   }
 };
 
-// Подписка на изменения store для синхронизации с localStorage
+// subscribing to store for sync with locaStorage
 if (typeof window !== 'undefined') {
   store.subscribe(() => {
     try {
@@ -88,7 +88,6 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 

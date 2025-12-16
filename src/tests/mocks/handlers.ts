@@ -1,8 +1,6 @@
-// src/tests/mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  // Мокаем запрос на получение текущей погоды по городу
   http.get('/api/fetchData', ({ request }) => {
     const url = new URL(request.url);
     const city = url.searchParams.get('city');
@@ -10,7 +8,6 @@ export const handlers = [
     const lon = url.searchParams.get('lon');
     const forecast = url.searchParams.get('forecast');
 
-    // Простой ответ на запрос текущей погоды
     if (city) {
       return HttpResponse.json({
         coord: { lat: 50, lon: 30 },
@@ -27,7 +24,6 @@ export const handlers = [
       });
     }
 
-    // Простой ответ на запрос с координатами
     if (lat && lon) {
       return HttpResponse.json({
         coord: { lat: 50, lon: 30 },
@@ -44,16 +40,13 @@ export const handlers = [
       });
     }
 
-    // Мокаем запрос с параметром forecast
     if (forecast === 'true') {
       return HttpResponse.json({
         list: [
           {
             dt: 1609459200, // 1 января 2021 года
             main: { temp: 22, feels_like: 21 },
-            weather: [
-              { main: 'Clear', description: 'clear sky', icon: '01d' },
-            ],
+            weather: [{ main: 'Clear', description: 'clear sky', icon: '01d' }],
             dt_txt: '2021-01-01 12:00:00',
           },
         ],

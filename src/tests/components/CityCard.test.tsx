@@ -1,11 +1,9 @@
-// CityCard.test.tsx
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import weatherSlice from '@/redux/weatherSlice';
-import fetchWeatherData from '@/lib/fetchWeatherData';
 import CityCard from '@/components/CityCard';
 
 // Mock next/navigation

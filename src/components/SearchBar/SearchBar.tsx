@@ -150,7 +150,6 @@ const SearchBar = (props: Props) => {
   const handleCitySelect = (city: City) => {
     setInputValue(city.name);
     setShowSuggestions(false);
-    // Используем RTK Query с координатами
     setCurrentWeatherQuery({ lat: city.lat, lon: city.lon });
   };
 
