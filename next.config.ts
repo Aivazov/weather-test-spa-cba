@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
   // Optimize images and static assets
   images: {
     unoptimized: false,
+    domains: [
+      'keyassets.timeincuk.net',
+      'cdn.mos.cms.futurecdn.net',
+      'www.weather.gov',
+    ],
   },
 };
 

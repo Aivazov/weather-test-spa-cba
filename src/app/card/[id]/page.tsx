@@ -15,6 +15,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CityCardDetails from '@/features/weather/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/features/weather/weatherSlice';
 import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
+import BgImage from '@/shared/ui/BgImage';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -105,12 +106,18 @@ const CardDetailPage = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', p: 3 }}>
+        <BgImage
+          imgSrc='https://www.weather.gov/images/owlie/SquallLine.jpg'
+          imgAlt='bg-image-details'
+        />
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
+            position: 'relative',
+            zIndex: 10,
           }}
         >
           <Button
@@ -132,7 +139,14 @@ const CardDetailPage = () => {
           </Button>
         </Box>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'relative',
+            zIndex: 10,
+          }}
+        >
           <CityCardDetails />
         </Box>
       </Box>
