@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import weatherReducer from './weatherSlice';
+import weatherReducer from '../features/weather/weatherSlice';
 import fetchWeatherData from '@/lib/fetchWeatherData';
 
 const loadState = () => {

@@ -23,7 +23,7 @@ import weatherSlice, {
   clearCities,
   updateWeatherCard,
   setWeatherCards,
-} from '@/redux/weatherSlice';
+} from '@/features/weather/weatherSlice';
 
 const reducer = weatherSlice;
 

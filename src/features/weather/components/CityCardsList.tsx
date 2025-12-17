@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Box } from '@mui/material';
 import CityCard from './CityCard';
 import { useEffect, useState } from 'react';
-import { setWeatherCards } from '@/redux/weatherSlice';
+import { setWeatherCards } from '@/features/weather/weatherSlice';
 
 interface WeatherCard {
   id: string;
@@ -18,7 +18,7 @@ interface WeatherCard {
   state?: string;
 }
 
-const WeatherCardsList = () => {
+const CityCardsList = () => {
   const { cards } = useSelector((state: any) => state.weather);
   const dispatch = useDispatch();
 
@@ -80,4 +80,4 @@ const WeatherCardsList = () => {
   );
 };
 
-export default WeatherCardsList;
+export default CityCardsList;

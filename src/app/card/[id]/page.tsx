@@ -12,8 +12,8 @@ import {
   CircularProgress,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CityCardDetails from '@/components/CityCardDetails/CityCardDetails';
-import { updateWeatherCard } from '@/redux/weatherSlice';
+import CityCardDetails from '@/features/weather/components/CityCardDetails/CityCardDetails';
+import { updateWeatherCard } from '@/features/weather/weatherSlice';
 import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });

@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import weatherSlice from '@/redux/weatherSlice';
+import weatherSlice from '@/features/weather/weatherSlice';
 
 // Mock SCSS modules
 jest.mock('@/components/Header/Header.module.scss', () => ({

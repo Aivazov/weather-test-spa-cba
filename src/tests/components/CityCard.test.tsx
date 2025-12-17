@@ -3,8 +3,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
-import weatherSlice from '@/redux/weatherSlice';
-import CityCard from '@/components/CityCard';
+import weatherSlice from '@/features/weather/weatherSlice';
+import CityCard from '@/features/weather/components/CityCard';
 
 // Mock next/navigation
 const mockPush = jest.fn();

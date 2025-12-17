@@ -1,7 +1,7 @@
 // Modal.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Modal from '@/components/Modal';
+import Modal from '@/shared/ui/Modal';
 
 describe('Modal', () => {
   const defaultProps = {

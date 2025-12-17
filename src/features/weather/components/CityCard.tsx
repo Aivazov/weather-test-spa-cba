@@ -13,8 +13,8 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { deleteWeatherCard } from '@/redux/weatherSlice';
-import Modal from '@/components/Modal';
+import { deleteWeatherCard } from '@/features/weather/weatherSlice';
+import Modal from '@/shared/ui/Modal';
 
 interface WeatherCardProps {
   id: string;

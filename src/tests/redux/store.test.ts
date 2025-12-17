@@ -61,7 +61,7 @@ import {
   addWeatherCard,
   setWeatherCards,
   deleteWeatherCard,
-} from '@/redux/weatherSlice';
+} from '@/features/weather/weatherSlice';
 
 const localStorageMock = {
   getItem: jest.fn(),
@@ -73,7 +73,7 @@ global.localStorage = localStorageMock;
 
 global.fetch = jest.fn();
 
-import store from '@/redux/store';
+import store from '@/store/store';
 
 describe('Redux Store', () => {
   beforeEach(() => {

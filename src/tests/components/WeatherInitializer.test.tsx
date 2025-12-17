@@ -3,8 +3,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import weatherSlice from '@/redux/weatherSlice';
-import WeatherInitializer from '@/components/WeatherInitializer';
+import weatherSlice from '@/features/weather/weatherSlice';
+import WeatherInitializer from '@/features/weather/containers/WeatherInitializer';
 
 // Mock fetch
 global.fetch = jest.fn();

@@ -1,8 +1,8 @@
 'use client';
 
-import Header from '@/components/Header/Header';
-import WeatherCardsList from '@/components/WeatherCardsList';
+import WeatherCardsList from '@/features/weather/components/CityCardsList';
 import styles from './page.module.scss';
+import Header from '@/shared/ui/Header/Header';
 
 export default function Home() {
   return (

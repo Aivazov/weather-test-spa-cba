@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { refreshAllWeatherCards } from '@/redux/store';
+import { refreshAllWeatherCards } from '@/store/store';
 
 export default function WeatherInitializer() {
   const [initialized, setInitialized] = useState(false);
