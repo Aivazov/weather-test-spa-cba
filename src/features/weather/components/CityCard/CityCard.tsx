@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -15,6 +14,10 @@ import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { deleteWeatherCard } from '@/features/weather/weatherSlice';
 import Modal from '@/shared/ui/Modal';
+import ButtonCard from '@/shared/ui/ButtonCard';
+import { card, cardMedia } from './cityCardStyles';
+import { motion } from 'framer-motion';
+import FadeInFromBottom from '@/shared/framerAnimation/FadeInFromBottom';
 
 interface WeatherCardProps {
   id: string;
@@ -77,63 +80,40 @@ const CityCard = (props: Props) => {
 
   return (
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
-      <Card
-        sx={{
-          width: 200,
-          display: 'flex',
-          flexDirection: 'column',
-          border: '1px solid #58595c',
-          borderRadius: '20px',
-          cursor: 'pointer',
-        }}
-      >
-        <CardMedia
-          sx={{
-            height: 120,
-            objectFit: 'contain',
-          }}
-          image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
-          title='weather icon'
-        />
-        <CardContent sx={{ flexGrow: 1 }}>
-          {city && country && (
-            <Typography gutterBottom variant='h5' component='div'>
-              {city}
-              {country && `, ${country}`}
+      <FadeInFromBottom>
+        <Card sx={card}>
+          <CardMedia
+            sx={cardMedia}
+            image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
+            title='weather icon'
+          />
+          <CardContent sx={{ flexGrow: 1 }}>
+            {city && country && (
+              <Typography gutterBottom variant='h5' component='div'>
+                {city}
+                {country && `, ${country}`}
+              </Typography>
+            )}
+            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+              Температура: {safeTemp}°C
             </Typography>
-          )}
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            Температура: {safeTemp}°C
-          </Typography>
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            Вологість: {safeHumidity}%
-          </Typography>
-          <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-            Умови: {safeCondition}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button
-            size='small'
-            onClick={(e: any) => {
-              e.stopPropagation();
-              handleMoreInfoClick();
-            }}
-          >
-            Деталі
-          </Button>
-          <Button
-            size='small'
-            onClick={(e: any) => {
-              e.stopPropagation();
-              handleDeleteClick();
-            }}
-            color='error'
-          >
-            Видалити
-          </Button>
-        </CardActions>
-      </Card>
+            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+              Вологість: {safeHumidity}%
+            </Typography>
+            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+              Умови: {safeCondition}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <ButtonCard handler={handleMoreInfoClick} color='primary'>
+              Деталі
+            </ButtonCard>
+            <ButtonCard handler={handleDeleteClick} color='error'>
+              Видалити
+            </ButtonCard>
+          </CardActions>
+        </Card>
+      </FadeInFromBottom>
 
       <Modal
         open={deleteDialogOpen}

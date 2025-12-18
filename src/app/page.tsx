@@ -1,6 +1,6 @@
 'use client';
 
-import WeatherCardsList from '@/features/weather/components/CityCardsList';
+import WeatherCardsList from '@/features/weather/components/CityCardsList/CityCardsList';
 import styles from './page.module.scss';
 import Header from '@/shared/ui/Header/Header';
 import BgImage from '@/shared/ui/BgImage';

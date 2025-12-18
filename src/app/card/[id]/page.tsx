@@ -7,15 +7,20 @@ import {
   Button,
   createTheme,
   ThemeProvider,
-  Typography,
   Box,
   CircularProgress,
 } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CityCardDetails from '@/features/weather/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/features/weather/weatherSlice';
 import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
 import BgImage from '@/shared/ui/BgImage';
+import NotFound from '@/app/NotFound';
+import ButtonMain from '@/shared/ui/ButtonMain';
+import {
+  cardDetailsPageContainer,
+  cardDetailsPageHeaderContainer,
+  cardDetailsPageMainContainer,
+} from './pageCardDetailsStyle';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -34,6 +39,10 @@ const CardDetailPage = () => {
   const [isClient, setIsClient] = useState(false);
   const [weatherData, setWeatherData] = useState(null);
 
+  const handleReturnHome = () => {
+    return router.push('/');
+  };
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -50,30 +59,7 @@ const CardDetailPage = () => {
   // END avoiding
 
   if (!card) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100vh',
-          p: 3,
-        }}
-      >
-        <Typography variant='h4' gutterBottom>
-          Картка не знайдена
-        </Typography>
-        <Button
-          variant='contained'
-          startIcon={<ArrowBackIcon />}
-          onClick={() => router.push('/')}
-          sx={{ mt: 2 }}
-        >
-          Повернутися назад
-        </Button>
-      </Box>
-    );
+    return <NotFound onReturnHome={handleReturnHome} />;
   }
 
   const handleDetailsUpdate = async () => {
@@ -105,29 +91,15 @@ const CardDetailPage = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default', p: 3 }}>
+      <Box sx={cardDetailsPageContainer}>
         <BgImage
           imgSrc='https://www.weather.gov/images/owlie/SquallLine.jpg'
           imgAlt='bg-image-details'
         />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            position: 'relative',
-            zIndex: 10,
-          }}
-        >
-          <Button
-            variant='outlined'
-            startIcon={<ArrowBackIcon />}
-            onClick={() => router.push('/')}
-            sx={{ mb: 3 }}
-          >
+        <Box sx={cardDetailsPageHeaderContainer}>
+          <ButtonMain onClickHandler={handleReturnHome} option='outlined'>
             Назад
-          </Button>
+          </ButtonMain>
           <Button
             variant='outlined'
             loading={isFetching}
@@ -139,14 +111,7 @@ const CardDetailPage = () => {
           </Button>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            position: 'relative',
-            zIndex: 10,
-          }}
-        >
+        <Box sx={cardDetailsPageMainContainer}>
           <CityCardDetails />
         </Box>
       </Box>

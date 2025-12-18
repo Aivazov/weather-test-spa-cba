@@ -30,8 +30,8 @@ const Modal = (props: Props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onCloseModal} color='primary'>
-          Отмена
-        </Button>
+          Скасувати
+        </Button>{' '}
         <Button onClick={onConfirmModal} color='error' variant='contained'>
           {approveBtn}
         </Button>

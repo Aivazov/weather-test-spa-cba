@@ -51,7 +51,7 @@ jest.mock('@/redux/loadWeatherThunk', () => ({
   },
 }));
 
-import WeatherCardsList from '@/features/weather/components/CityCardsList';
+import WeatherCardsList from '@/features/weather/components/CityCardsList/CityCardsList';
 
 const createTestStore = (initialState?: any) => {
   return configureStore({

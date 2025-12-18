@@ -8,6 +8,8 @@ import {
   fontSizeSubtitle,
   fontSizeData,
 } from './cityCardDetailsStyles';
+import ScaleExpand from '@/shared/framerAnimation/ScaleExpand';
+import { commonOptions } from './cityCardDetailsAssets';
 
 type Props = {};
 
@@ -17,30 +19,6 @@ const CityCardDetails = (props: Props) => {
 
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
-
-  const commonOptions = [
-    {
-      title: 'Відчувається як',
-      text: `${Math.round(card?.feelsLike)} °C`,
-    },
-    {
-      title: 'Вологість',
-      text: `${card?.humidity ? `${card?.humidity}%` : '--'}`,
-    },
-    {
-      title: 'Тиск, мм',
-      text: `${card?.pressure ? `${Math.round(card?.pressure)}` : '--'}`,
-    },
-    {
-      title: 'Вітер',
-      text: `${
-        card?.windSpeed
-          ? `${Math.round(card?.windSpeed * 3.6 * 10) / 10} км/г`
-          : '--'
-      }`,
-    },
-  ];
-  // console.log('card', card);
 
   return (
     <Card sx={{ maxWidth: 600, width: '100%' }}>
@@ -84,24 +62,28 @@ const CityCardDetails = (props: Props) => {
 
         {/* Main Options List */}
         <Box sx={boxMainStyles}>
-          {commonOptions.map((item, idx) => (
-            <Box key={item.title} sx={boxCommonStyles}>
-              <Typography color='text.secondary' sx={fontSizeSubtitle}>
-                {item.title}
-              </Typography>
-              <Typography sx={fontSizeData}>{item.text}</Typography>
-            </Box>
+          {commonOptions(card).map((item, idx) => (
+            <ScaleExpand key={idx} idx={idx}>
+              <Box sx={boxCommonStyles}>
+                <Typography color='text.secondary' sx={fontSizeSubtitle}>
+                  {item.title}
+                </Typography>
+                <Typography sx={fontSizeData}>{item.text}</Typography>
+              </Box>
+            </ScaleExpand>
           ))}
         </Box>
 
-        <Box sx={{ ...boxCommonStyles, p: 3 }}>
-          <Typography variant='h6' color='text.secondary' gutterBottom>
-            Погодні умови
-          </Typography>
-          <Typography variant='h4' sx={{ textTransform: 'capitalize' }}>
-            {card.description ? card.description : 'Невідомо'}
-          </Typography>
-        </Box>
+        <ScaleExpand idx={5}>
+          <Box sx={{ ...boxCommonStyles, p: 3 }}>
+            <Typography variant='h6' color='text.secondary' gutterBottom>
+              Погодні умови
+            </Typography>
+            <Typography variant='h4' sx={{ textTransform: 'capitalize' }}>
+              {card.description ? card.description : 'Невідомо'}
+            </Typography>
+          </Box>
+        </ScaleExpand>
       </CardContent>
     </Card>
   );

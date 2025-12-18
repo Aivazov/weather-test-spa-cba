@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import weatherSlice from '@/features/weather/weatherSlice';
-import CityCard from '@/features/weather/components/CityCard';
+import CityCard from '@/features/weather/components/CityCard/CityCard';
 
 // Mock next/navigation
 const mockPush = jest.fn();
