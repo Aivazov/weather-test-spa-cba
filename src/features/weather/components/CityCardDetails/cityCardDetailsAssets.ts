@@ -1,6 +1,6 @@
 export const commonOptions = (card: any) => [
   {
-    title: 'Відчувається як',
+    title: 'Відчувається',
     text: `${Math.round(card?.feelsLike)} °C`,
   },
   {

@@ -21,6 +21,7 @@ import {
   cardDetailsPageHeaderContainer,
   cardDetailsPageMainContainer,
 } from './pageCardDetailsStyle';
+import BgAnimation from '@/shared/ui/BgAnimation/BgAnimation';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -89,19 +90,31 @@ const CardDetailPage = () => {
     }
   };
 
+  const colors = [
+    '#ff5f6d',
+    '#ffc3a0',
+    '#ff9966',
+    '#ffcc00',
+    '#66ccff',
+    '#6a5acd',
+    '#8a2be2',
+    '#00ff00',
+  ];
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={cardDetailsPageContainer}>
-        <BgImage
+        {/* <BgImage
           imgSrc='https://www.weather.gov/images/owlie/SquallLine.jpg'
           imgAlt='bg-image-details'
-        />
+        /> */}
+        <BgAnimation colors={colors} />
         <Box sx={cardDetailsPageHeaderContainer}>
-          <ButtonMain onClickHandler={handleReturnHome} option='outlined'>
+          <ButtonMain onClickHandler={handleReturnHome} option='contained'>
             Назад
           </ButtonMain>
           <Button
-            variant='outlined'
+            variant='contained'
             loading={isFetching}
             loadingIndicator={<CircularProgress size={20} color='secondary' />}
             onClick={handleDetailsUpdate}

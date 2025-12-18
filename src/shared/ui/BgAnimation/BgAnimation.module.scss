@@ -1,0 +1,66 @@
+/* components/RainbowBackground.module.css */
+// .rainbowBackground {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: linear-gradient(
+//     45deg,
+//     #ff5f6d,
+//     #ffc3a0,
+//     #ff9966,
+//     #ffcc00,
+//     #66ccff,
+//     #6a5acd,
+//     #8a2be2,
+//     #00ff00
+//   );
+//   background-size: 400% 400%;
+//   animation: rainbowAnimation 10s ease infinite;
+//   z-index: 1;
+// }
+// .rainbowBackground {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background-size: 400% 400%;
+//   animation: rainbowAnimation 10s ease infinite;
+//   z-index: 1;
+// }
+
+.rainbowBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    var(--color1),
+    var(--color2),
+    var(--color3),
+    var(--color4),
+    var(--color5),
+    var(--color6),
+    var(--color7),
+    var(--color8)
+  );
+  background-size: 400% 400%;
+  animation: rainbowAnimation 10s ease infinite;
+  z-index: 1;
+}
+
+@keyframes rainbowAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

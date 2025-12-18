@@ -7,6 +7,9 @@ import {
   boxCommonStyles,
   fontSizeSubtitle,
   fontSizeData,
+  cardTitleStyles,
+  cardTempStyles,
+  cardDetailsContainer,
 } from './cityCardDetailsStyles';
 import ScaleExpand from '@/shared/framerAnimation/ScaleExpand';
 import { commonOptions } from './cityCardDetailsAssets';
@@ -21,7 +24,7 @@ const CityCardDetails = (props: Props) => {
   const card = cards.find((item: any) => item.id === cardId);
 
   return (
-    <Card sx={{ maxWidth: 600, width: '100%' }}>
+    <Card sx={cardDetailsContainer}>
       <CardMedia
         sx={cardMediaStyles}
         image={
@@ -37,7 +40,7 @@ const CityCardDetails = (props: Props) => {
           variant='h3'
           component='div'
           align='center'
-          sx={{ mb: 3 }}
+          sx={cardTitleStyles}
         >
           {card.city}
           {card.state && `, ${card.state}`}
@@ -55,7 +58,7 @@ const CityCardDetails = (props: Props) => {
         )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-          <Typography variant='h3' component='div' sx={{ fontWeight: 'light' }}>
+          <Typography variant='h3' component='div' sx={cardTempStyles}>
             {card.temperature ? Math.round(card.temperature) : '--'}°C
           </Typography>
         </Box>
@@ -75,7 +78,7 @@ const CityCardDetails = (props: Props) => {
         </Box>
 
         <ScaleExpand idx={5}>
-          <Box sx={{ ...boxCommonStyles, p: 3 }}>
+          <Box sx={{ ...boxCommonStyles, p: 3, ...cardTitleStyles }}>
             <Typography variant='h6' color='text.secondary' gutterBottom>
               Погодні умови
             </Typography>

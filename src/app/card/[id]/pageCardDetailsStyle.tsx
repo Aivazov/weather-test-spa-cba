@@ -1,5 +1,5 @@
 export const cardDetailsPageContainer = {
-  height: '100vh',
+  // minheight: '100vh',
   bgcolor: 'background.default',
   p: 3,
 };
@@ -18,4 +18,5 @@ export const cardDetailsPageMainContainer = {
   justifyContent: 'center',
   position: 'relative',
   zIndex: 10,
+  opacity: 0.88,
 };
