@@ -13,8 +13,8 @@ import {
 import CityCardDetails from '@/features/weather/components/CityCardDetails/CityCardDetails';
 import { updateWeatherCard } from '@/features/weather/weatherSlice';
 import { useLazyGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
-import BgImage from '@/shared/ui/BgImage';
-import NotFound from '@/app/NotFound';
+// import BgImage from '@/shared/ui/BgImage';
+import NotFoundCard from '@/app/card/[id]/NotFoundCard';
 import ButtonMain from '@/shared/ui/ButtonMain';
 import {
   cardDetailsPageContainer,
@@ -22,6 +22,7 @@ import {
   cardDetailsPageMainContainer,
 } from './pageCardDetailsStyle';
 import BgAnimation from '@/shared/ui/BgAnimation/BgAnimation';
+import { themeDeepPurple } from '@/shared/ui/BgAnimation/BgAnimationAssets';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -60,7 +61,7 @@ const CardDetailPage = () => {
   // END avoiding
 
   if (!card) {
-    return <NotFound onReturnHome={handleReturnHome} />;
+    return <NotFoundCard onReturnHome={handleReturnHome} />;
   }
 
   const handleDetailsUpdate = async () => {
@@ -90,17 +91,6 @@ const CardDetailPage = () => {
     }
   };
 
-  const colors = [
-    '#ff5f6d',
-    '#ffc3a0',
-    '#ff9966',
-    '#ffcc00',
-    '#66ccff',
-    '#6a5acd',
-    '#8a2be2',
-    '#00ff00',
-  ];
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Box sx={cardDetailsPageContainer}>
@@ -108,7 +98,7 @@ const CardDetailPage = () => {
           imgSrc='https://www.weather.gov/images/owlie/SquallLine.jpg'
           imgAlt='bg-image-details'
         /> */}
-        <BgAnimation colors={colors} />
+        <BgAnimation colors={themeDeepPurple} />
         <Box sx={cardDetailsPageHeaderContainer}>
           <ButtonMain onClickHandler={handleReturnHome} option='contained'>
             Назад

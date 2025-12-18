@@ -25,7 +25,7 @@ const ButtonMain = ({
       loading={loading}
       loadingIndicator={loadingIndicator}
       onClick={onClickHandler}
-      sx={{ mb: 3 }}
+      sx={{ mb: 3, position: 'relative', zIndex: 10 }}
     >
       {children}
     </Button>

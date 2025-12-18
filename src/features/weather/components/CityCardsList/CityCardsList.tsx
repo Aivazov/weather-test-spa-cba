@@ -54,8 +54,9 @@ const CityCardsList = () => {
 
   return (
     <Box sx={citCardsListContainer}>
-      {cards.map((card: WeatherCard) => (
+      {cards.map((card: WeatherCard, idx: number) => (
         <CityCard
+          idx={idx}
           key={card.id}
           icon={card.icon}
           city={card.city}

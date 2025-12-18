@@ -13,6 +13,7 @@ import {
 } from './cityCardDetailsStyles';
 import ScaleExpand from '@/shared/framerAnimation/ScaleExpand';
 import { commonOptions } from './cityCardDetailsAssets';
+import AppearingOut from '@/shared/framerAnimation/AppearingOut';
 
 type Props = {};
 
@@ -25,36 +26,42 @@ const CityCardDetails = (props: Props) => {
 
   return (
     <Card sx={cardDetailsContainer}>
-      <CardMedia
-        sx={cardMediaStyles}
-        image={
-          card.icon
-            ? `https://openweathermap.org/img/wn/${card.icon}@2x.png`
-            : ''
-        }
-        title='weather icon'
-      />
+      <AppearingOut retention={0.2}>
+        <CardMedia
+          sx={cardMediaStyles}
+          image={
+            card.icon
+              ? `https://openweathermap.org/img/wn/${card.icon}@2x.png`
+              : ''
+          }
+          title='weather icon'
+        />
+      </AppearingOut>
       <CardContent sx={{ p: 4 }}>
-        <Typography
-          gutterBottom
-          variant='h3'
-          component='div'
-          align='center'
-          sx={cardTitleStyles}
-        >
-          {card.city}
-          {card.state && `, ${card.state}`}
-          {card.country && `, ${card.country}`}
-        </Typography>
+        <AppearingOut retention={0.35}>
+          <Typography
+            gutterBottom
+            variant='h3'
+            component='div'
+            align='center'
+            sx={cardTitleStyles}
+          >
+            {card.city}
+            {card.state && `, ${card.state}`}
+            {card.country && `, ${card.country}`}
+          </Typography>
+        </AppearingOut>
 
         {(card.lat || card.lon) && (
-          <Typography
-            variant='subtitle1'
-            align='center'
-            sx={{ mb: 2, color: 'text.secondary' }}
-          >
-            Координати: {card.lat?.toFixed(4)}, {card.lon?.toFixed(4)}
-          </Typography>
+          <AppearingOut retention={0.5}>
+            <Typography
+              variant='subtitle1'
+              align='center'
+              sx={{ mb: 2, color: 'text.secondary' }}
+            >
+              Координати: {card.lat?.toFixed(4)}, {card.lon?.toFixed(4)}
+            </Typography>
+          </AppearingOut>
         )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
@@ -66,7 +73,7 @@ const CityCardDetails = (props: Props) => {
         {/* Main Options List */}
         <Box sx={boxMainStyles}>
           {commonOptions(card).map((item, idx) => (
-            <ScaleExpand key={idx} idx={idx}>
+            <ScaleExpand key={idx} idx={idx + 4}>
               <Box sx={boxCommonStyles}>
                 <Typography color='text.secondary' sx={fontSizeSubtitle}>
                   {item.title}
@@ -77,7 +84,7 @@ const CityCardDetails = (props: Props) => {
           ))}
         </Box>
 
-        <ScaleExpand idx={5}>
+        <ScaleExpand idx={9}>
           <Box sx={{ ...boxCommonStyles, p: 3, ...cardTitleStyles }}>
             <Typography variant='h6' color='text.secondary' gutterBottom>
               Погодні умови

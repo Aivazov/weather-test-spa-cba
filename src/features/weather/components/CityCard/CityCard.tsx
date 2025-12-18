@@ -16,10 +16,11 @@ import { deleteWeatherCard } from '@/features/weather/weatherSlice';
 import Modal from '@/shared/ui/Modal';
 import ButtonCard from '@/shared/ui/ButtonCard';
 import { card, cardMedia } from './cityCardStyles';
-import { motion } from 'framer-motion';
 import FadeInFromBottom from '@/shared/framerAnimation/FadeInFromBottom';
+import AppearingOut from '@/shared/framerAnimation/AppearingOut';
 
 interface WeatherCardProps {
+  idx: number;
   id: string;
   temperature: number;
   humidity: number | null;
@@ -80,29 +81,39 @@ const CityCard = (props: Props) => {
 
   return (
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
-      <FadeInFromBottom>
+      <FadeInFromBottom idx={props.idx}>
         <Card sx={card}>
-          <CardMedia
-            sx={cardMedia}
-            image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
-            title='weather icon'
-          />
+          <AppearingOut retention={0.3}>
+            <CardMedia
+              sx={cardMedia}
+              image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
+              title='weather icon'
+            />
+          </AppearingOut>
           <CardContent sx={{ flexGrow: 1 }}>
             {city && country && (
-              <Typography gutterBottom variant='h5' component='div'>
-                {city}
-                {country && `, ${country}`}
-              </Typography>
+              <AppearingOut retention={0.4}>
+                <Typography gutterBottom variant='h5' component='div'>
+                  {city}
+                  {country && `, ${country}`}
+                </Typography>
+              </AppearingOut>
             )}
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Температура: {safeTemp}°C
-            </Typography>
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Вологість: {safeHumidity}%
-            </Typography>
-            <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-              Умови: {safeCondition}
-            </Typography>
+            <AppearingOut retention={0.5}>
+              <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+                Температура: {safeTemp}°C
+              </Typography>
+            </AppearingOut>
+            <AppearingOut retention={0.6}>
+              <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+                Вологість: {safeHumidity}%
+              </Typography>
+            </AppearingOut>
+            <AppearingOut retention={0.7}>
+              <Typography variant='body2' sx={{ color: 'text.secondary' }}>
+                Умови: {safeCondition}
+              </Typography>
+            </AppearingOut>
           </CardContent>
           <CardActions>
             <ButtonCard handler={handleMoreInfoClick} color='primary'>
