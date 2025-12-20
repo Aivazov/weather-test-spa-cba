@@ -10,12 +10,17 @@ import {
   cardTitleStyles,
   cardTempStyles,
   cardDetailsContainer,
+  cardBackgroundEffect,
 } from './cityCardDetailsStyles';
 import ScaleExpand from '@/shared/framerAnimation/ScaleExpand';
 import { commonOptions } from './cityCardDetailsAssets';
 import AppearingOut from '@/shared/framerAnimation/AppearingOut';
 
 type Props = {};
+
+const CardBgEffect = (props: Props) => {
+  return <div style={{ ...cardBackgroundEffect }}></div>;
+};
 
 const CityCardDetails = (props: Props) => {
   const params = useParams();
@@ -26,6 +31,7 @@ const CityCardDetails = (props: Props) => {
 
   return (
     <Card sx={cardDetailsContainer}>
+      <CardBgEffect />
       <AppearingOut retention={0.2}>
         <CardMedia
           sx={cardMediaStyles}
@@ -65,15 +71,17 @@ const CityCardDetails = (props: Props) => {
         )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-          <Typography variant='h3' component='div' sx={cardTempStyles}>
-            {card.temperature ? Math.round(card.temperature) : '--'}°C
-          </Typography>
+          <AppearingOut retention={0.65}>
+            <Typography variant='h3' component='div' sx={cardTempStyles}>
+              {card.temperature ? Math.round(card.temperature) : '--'}°C
+            </Typography>
+          </AppearingOut>
         </Box>
 
         {/* Main Options List */}
         <Box sx={boxMainStyles}>
           {commonOptions(card).map((item, idx) => (
-            <ScaleExpand key={idx} idx={idx + 4}>
+            <ScaleExpand key={idx} retention={idx + 6}>
               <Box sx={boxCommonStyles}>
                 <Typography color='text.secondary' sx={fontSizeSubtitle}>
                   {item.title}
@@ -84,7 +92,7 @@ const CityCardDetails = (props: Props) => {
           ))}
         </Box>
 
-        <ScaleExpand idx={9}>
+        <ScaleExpand retention={11}>
           <Box sx={{ ...boxCommonStyles, p: 3, ...cardTitleStyles }}>
             <Typography variant='h6' color='text.secondary' gutterBottom>
               Погодні умови

@@ -3,19 +3,19 @@ import React from 'react';
 
 type Props = {
   children: React.JSX.Element;
-  idx: number;
+  retention: number;
 };
 
-const ScaleExpand = ({ children, idx }: Props) => {
+const ScaleExpand = ({ children, retention }: Props) => {
   return (
     <motion.div
-      // key={idx}
+      // key={retention}
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{
         duration: 0.3,
         ease: 'easeOut',
-        delay: 0.1 * idx,
+        delay: 0.1 * retention,
       }}
     >
       {children}

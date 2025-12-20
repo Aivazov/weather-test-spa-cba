@@ -1,7 +1,8 @@
 export const cardDetailsPageContainer = {
   // minheight: '100vh',
   bgcolor: 'background.default',
-  p: 3,
+  paddingTop: 3,
+  paddingX: 3,
 };
 
 export const cardDetailsPageHeaderContainer = {

@@ -5,6 +5,20 @@ export const cardDetailsContainer = {
   width: '100%',
   border: '1px solid #ccc',
   borderRadius: '20px',
+  backgroundColor: 'transparent',
+  position: 'relative',
+};
+
+export const cardBackgroundEffect = {
+  // position: 'absolute',
+  position: 'absolute' as React.CSSProperties['position'],
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  background: 'rgba(0, 0, 0, 0.6)', // Полупрозрачный черный цвет
+  filter: 'blur(10px)', // Эффект размытия
+  zIndex: -1, // Ставим фоновый слой позади содержимого
 };
 
 export const cardMediaStyles = {
