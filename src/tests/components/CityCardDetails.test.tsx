@@ -31,7 +31,7 @@ jest.mock('@/redux/loadWeatherThunk', () => ({
   },
 }));
 
-import CityCardDetails from '@/features/weather/components/CityCardDetails/CityCardDetails';
+import CityCardDetails from '@/features/weather/components/CardPageClient/CityCardDetails/CityCardDetails';
 import { useParams } from 'next/navigation';
 
 const mockUseParams = useParams as jest.MockedFunction<typeof useParams>;
@@ -93,7 +93,7 @@ describe('CityCardDetails', () => {
 
     expect(screen.getByText('Kyiv, Kyiv Oblast, UA')).toBeInTheDocument();
     expect(
-      screen.getByText('Координати: 50.4501, 30.5234')
+      screen.getByText('Координати: 50.4501, 30.5234'),
     ).toBeInTheDocument();
     expect(screen.getByText('20°C')).toBeInTheDocument();
     expect(screen.getByText('Відчувається як')).toBeInTheDocument();
@@ -194,7 +194,7 @@ describe('CityCardDetails', () => {
     renderWithProviders(<CityCardDetails />, store);
 
     expect(
-      screen.getByText('Координати: 50.4501, 30.5235')
+      screen.getByText('Координати: 50.4501, 30.5235'),
     ).toBeInTheDocument();
   });
 

@@ -2,6 +2,7 @@ export const cardDetailsPageContainer = {
   // minheight: '100vh',
   bgcolor: 'background.default',
   paddingTop: 3,
+  paddingBottom: 4,
   paddingX: 3,
 };
 

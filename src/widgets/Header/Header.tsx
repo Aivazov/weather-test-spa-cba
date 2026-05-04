@@ -1,4 +1,4 @@
-import SearchBar from '@/features/weather/components/SearchBar/SearchBar';
+import SearchBar from '@/features/weather/components/WeatherClient/SearchBar/SearchBar';
 import styles from './Header.module.scss';
 
 type Props = {};

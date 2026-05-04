@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import weatherSlice from '@/features/weather/weatherSlice';
-import CityCard from '@/features/weather/components/CityCard/CityCard';
+import CityCard from '@/features/weather/components/WeatherClient/CityCard/CityCard';
 
 // Mock next/navigation
 const mockPush = jest.fn();
@@ -168,7 +168,7 @@ describe('CityCard', () => {
     renderWithProviders(
       <div onClick={mockOnClick}>
         <CityCard {...defaultProps} />
-      </div>
+      </div>,
     );
 
     const detailsButton = screen.getByText('Деталі');
@@ -188,8 +188,8 @@ describe('CityCard', () => {
     expect(screen.getByText('Підтвердження видалення')).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Ви дійсно бажаєте видалити картку з погодою для міста Odesa?'
-      )
+        'Ви дійсно бажаєте видалити картку з погодою для міста Odesa?',
+      ),
     ).toBeInTheDocument();
     expect(screen.getByTestId('modal-confirm')).toBeInTheDocument();
   });
@@ -200,7 +200,7 @@ describe('CityCard', () => {
     renderWithProviders(
       <div onClick={mockOnClick}>
         <CityCard {...defaultProps} />
-      </div>
+      </div>,
     );
 
     const deleteButton = screen.getByText('Видалити');
@@ -254,7 +254,7 @@ describe('CityCard', () => {
 
   it('applies correct theme based on lightMode prop', () => {
     const { rerender } = renderWithProviders(
-      <CityCard {...defaultProps} lightMode={true} />
+      <CityCard {...defaultProps} lightMode={true} />,
     );
 
     // Check that the card is rendered with light theme
@@ -267,7 +267,7 @@ describe('CityCard', () => {
     rerender(
       <Provider store={createTestStore()}>
         <CityCard {...defaultProps} lightMode={false} />
-      </Provider>
+      </Provider>,
     );
 
     // Card should still be rendered

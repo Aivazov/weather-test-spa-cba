@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Box } from '@mui/material';
-import CityCard from '../CityCard/CityCard';
 import { useEffect, useState } from 'react';
 import { setWeatherCards } from '@/features/weather/weatherSlice';
 import { citCardsListContainer } from './cityCardsListStyles';
+import CityCard from '../CityCard/CityCard';
 
 interface WeatherCard {
   id: string;
