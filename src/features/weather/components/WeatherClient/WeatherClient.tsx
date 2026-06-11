@@ -9,7 +9,7 @@ import Footer from '@/widgets/Footer/Footer';
 
 const WeatherClient = () => {
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
       <BgAnimation colors={themeBlueBreeze} />
       <Header />
       <main className={styles.main}>

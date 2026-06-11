@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { refreshWeatherCards } from '../../store/loadWeatherThunk';
+import { refreshWeatherCards } from '../../redux/loadWeatherThunk';
 
 export interface WeatherCard {
   // id: number;
@@ -53,7 +53,7 @@ const weatherSlice = createSlice({
         state: action.payload.state,
       };
       const cardExists = state.cards.some(
-        (card) => card.lat === newCard.lat && card.lon === newCard.lon
+        (card) => card.lat === newCard.lat && card.lon === newCard.lon,
       );
       // console.log('newCard', newCard);
 
@@ -75,7 +75,7 @@ const weatherSlice = createSlice({
     },
     updateWeatherCard: (state, action) => {
       const idx = state.cards.findIndex(
-        (card) => card.id === action.payload.id
+        (card) => card.id === action.payload.id,
       );
       if (idx !== -1) {
         state.cards[idx] = {
@@ -104,7 +104,7 @@ const weatherSlice = createSlice({
         // Updating each card individually
         action.payload.forEach((updatedCard: any) => {
           const idx = state.cards.findIndex(
-            (card) => card.id === updatedCard.id
+            (card) => card.id === updatedCard.id,
           );
           if (idx !== -1) {
             // console.log(

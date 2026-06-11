@@ -1,5 +1,7 @@
+// src/features/weather/components/WeatherClient/CityCardsList/CityCardsList.tsx
+
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { setWeatherCards } from '@/features/weather/weatherSlice';
 import { citCardsListContainer } from './cityCardsListStyles';
@@ -41,16 +43,6 @@ const CityCardsList = () => {
 
   if (!mounted) return null;
   // END avoiding
-
-  // if (cards.length === 0) {
-  //   return (
-  //     <Box className='text-center text-gray-500 dark:text-gray-400'>
-  //       <Typography variant='h6' component='p'>
-  //         Введіть назву міста в поле пошуку вище
-  //       </Typography>
-  //     </Box>
-  //   );
-  // }
 
   return (
     <Box sx={citCardsListContainer}>

@@ -1,25 +1,23 @@
 'use client';
 
 import {
+  Box,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   createTheme,
   ThemeProvider,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useRouter } from 'next/navigation';
-import { deleteWeatherCard } from '@/features/weather/weatherSlice';
 import Modal from '@/shared/ui/Modal';
 import ButtonCard from '@/shared/ui/ButtonCard';
 import { card, cardMedia } from './cityCardStyles';
 import FadeInFromBottom from '@/shared/framerAnimation/FadeInFromBottom';
 import AppearingOut from '@/shared/framerAnimation/AppearingOut';
+import { useCityCard } from '../hooks/useCityCard';
+import { WeatherIcon } from '@/shared/ui/WeatherIcon/WeatherIcon';
 
-interface WeatherCardProps {
+export interface WeatherCardProps {
   idx: number;
   id: string;
   temperature: number;
@@ -34,87 +32,72 @@ interface WeatherCardProps {
   lightMode: boolean;
 }
 
-type Props = WeatherCardProps;
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-const CityCard = (props: Props) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
+const CityCard = (props: WeatherCardProps) => {
+  const { city, country, lightMode, idx } = props;
+
   const {
-    id,
-    temperature,
-    humidity,
-    city,
-    condition,
-    country,
-    icon,
-    // lat,
-    // lon,
-    // state,
-    lightMode,
-  } = props;
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-  //avoiding hydration fail
-  const safeIcon = icon ?? '01d';
-  const safeTemp = Math.round(temperature) ?? '--';
-  const safeHumidity = humidity ?? '--';
-  const safeCondition = condition ?? 'невідомо';
-
-  const handleDeleteClick = () => {
-    setDeleteDialogOpen(true);
-  };
-
-  const handleDeleteConfirm = () => {
-    dispatch(deleteWeatherCard(id));
-    setDeleteDialogOpen(false);
-  };
-
-  const handleDeleteCancel = () => {
-    setDeleteDialogOpen(false);
-  };
-
-  const handleMoreInfoClick = () => {
-    router.push(`/card/${id}`);
-  };
+    deleteDialogOpen,
+    safeIcon,
+    safeTemp,
+    safeHumidity,
+    safeCondition,
+    handleDeleteClick,
+    handleDeleteCancel,
+    handleDeleteConfirm,
+    handleMoreInfoClick,
+  } = useCityCard(props);
 
   return (
     <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
-      <FadeInFromBottom idx={props.idx}>
+      <FadeInFromBottom idx={idx}>
         <Card sx={card}>
+          {/* Weather Icon Block */}
           <AppearingOut retention={0.3}>
-            <CardMedia
-              sx={cardMedia}
-              image={`https://openweathermap.org/img/wn/${safeIcon}@2x.png`}
-              title='weather icon'
-            />
+            <Box
+              sx={{
+                ...cardMedia,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <WeatherIcon iconCode={safeIcon} lightMode={lightMode} />
+            </Box>
           </AppearingOut>
+
+          {/* Info Block */}
           <CardContent sx={{ flexGrow: 1 }}>
             {city && country && (
               <AppearingOut retention={0.4}>
                 <Typography gutterBottom variant='h5' component='div'>
-                  {city}
-                  {country && `, ${country}`}
+                  {city}, {country}
                 </Typography>
               </AppearingOut>
             )}
+
             <AppearingOut retention={0.5}>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
                 Температура: {safeTemp}°C
               </Typography>
             </AppearingOut>
+
             <AppearingOut retention={0.6}>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
                 Вологість: {safeHumidity}%
               </Typography>
             </AppearingOut>
+
             <AppearingOut retention={0.7}>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
                 Умови: {safeCondition}
               </Typography>
             </AppearingOut>
           </CardContent>
+
+          {/* Control Btns */}
           <CardActions>
             <ButtonCard handler={handleMoreInfoClick} color='primary'>
               Деталі
@@ -126,6 +109,7 @@ const CityCard = (props: Props) => {
         </Card>
       </FadeInFromBottom>
 
+      {/* Confirmation Modal */}
       <Modal
         open={deleteDialogOpen}
         onCloseModal={handleDeleteCancel}

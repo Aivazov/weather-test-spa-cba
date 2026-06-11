@@ -29,7 +29,7 @@ jest.mock('@/redux/weatherSlice', () => ({
         isLoadingCities: false,
         isLoading: false,
       },
-      action
+      action,
     ) => {
       switch (action.type) {
         case 'weather/addWeatherCard':
@@ -50,7 +50,7 @@ jest.mock('@/redux/weatherSlice', () => ({
         default:
           return state;
       }
-    }
+    },
   ),
   addWeatherCard: mockAddWeatherCard,
   setWeatherCards: mockSetWeatherCards,
@@ -73,7 +73,7 @@ global.localStorage = localStorageMock;
 
 global.fetch = jest.fn();
 
-import store from '@/store/store';
+import store from '@/redux/store';
 
 describe('Redux Store', () => {
   beforeEach(() => {
