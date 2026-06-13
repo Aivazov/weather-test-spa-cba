@@ -12,7 +12,7 @@ import {
   setLoadingCities,
   clearCities,
   addWeatherCard,
-} from '@/features/weather/weatherSlice';
+} from '@/features/weather/store/weatherSlice';
 import { useGetCurrentWeatherQuery } from '@/lib/fetchWeatherData';
 
 export interface City {

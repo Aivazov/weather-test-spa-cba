@@ -23,7 +23,7 @@ import weatherSlice, {
   clearCities,
   updateWeatherCard,
   setWeatherCards,
-} from '@/features/weather/weatherSlice';
+} from '@/features/weather/store/weatherSlice';
 
 const reducer = weatherSlice;
 

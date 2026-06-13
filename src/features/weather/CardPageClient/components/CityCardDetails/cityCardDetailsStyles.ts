@@ -55,7 +55,7 @@ export const boxCommonStyles = {
 };
 
 export const fontSizeSubtitle = {
-  fontSize: { xs: '16px', sm: '22px', md: '24px' },
+  fontSize: { xs: '12px', sm: '22px', md: '24px' },
 };
 
 export const fontSizeData = {

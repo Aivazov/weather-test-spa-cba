@@ -1,4 +1,4 @@
-import CardPageClient from '@/features/weather/components/CardPageClient/CardPageClient';
+import CardPageClient from '@/features/weather/CardPageClient/CardPageClient';
 
 const CardDetailPage = () => {
   return (

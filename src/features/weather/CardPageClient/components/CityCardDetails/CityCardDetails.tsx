@@ -5,8 +5,6 @@ import {
   cardMediaStyles,
   boxMainStyles,
   boxCommonStyles,
-  fontSizeSubtitle,
-  fontSizeData,
   cardTitleStyles,
   cardTempStyles,
   cardDetailsContainer,
@@ -15,6 +13,11 @@ import {
 import ScaleExpand from '@/shared/framerAnimation/ScaleExpand';
 import { commonOptions } from './cityCardDetailsAssets';
 import AppearingOut from '@/shared/framerAnimation/AppearingOut';
+
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import CoordinatesSection from './CoordinatesSection';
+import MainOptionItem from './MainOptionItem';
+import { WeatherIcon } from '@/shared/ui/WeatherIcon/WeatherIcon';
 
 type Props = {};
 
@@ -29,11 +32,26 @@ const CityCardDetails = (props: Props) => {
   const { cards } = useSelector((state: any) => state.weather);
   const card = cards.find((item: any) => item.id === cardId);
 
+  if(!card) return null;
+
   return (
     <Card sx={cardDetailsContainer}>
       <CardBgEffect />
       <AppearingOut retention={0.2}>
-        <CardMedia
+        <Box
+          sx={{
+            ...cardMediaStyles, // сохраняем размеры и внешние отступы оригинального медиа-блока
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '120px', // даем немного пространства для иконки, если в стилях не указано
+          }}
+        >
+          {/* Передаем код иконки из стейта. 
+              Поскольку страница деталей в темной теме, ставим lightMode={false} */}
+          <WeatherIcon iconCode={card.icon || '01d'} lightMode={false} />
+        </Box>
+        {/* <CardMedia
           sx={cardMediaStyles}
           image={
             card.icon
@@ -41,8 +59,9 @@ const CityCardDetails = (props: Props) => {
               : ''
           }
           title='weather icon'
-        />
+        /> */}
       </AppearingOut>
+      
       <CardContent sx={{ p: 4 }}>
         <AppearingOut retention={0.35}>
           <Typography
@@ -60,19 +79,15 @@ const CityCardDetails = (props: Props) => {
 
         {(card.lat || card.lon) && (
           <AppearingOut retention={0.5}>
-            <Typography
-              variant='subtitle1'
-              align='center'
-              sx={{ mb: 2, color: 'text.secondary' }}
-            >
-              Координати: {card.lat?.toFixed(4)}, {card.lon?.toFixed(4)}
-            </Typography>
+            <CoordinatesSection card={card} />
           </AppearingOut>
         )}
 
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
           <AppearingOut retention={0.65}>
             <Typography variant='h3' component='div' sx={cardTempStyles}>
+
+            <ThermostatIcon color="secondary" />
               {card.temperature ? Math.round(card.temperature) : '--'}°C
             </Typography>
           </AppearingOut>
@@ -80,21 +95,22 @@ const CityCardDetails = (props: Props) => {
 
         {/* Main Options List */}
         <Box sx={boxMainStyles}>
-          {commonOptions(card).map((item, idx) => (
-            <ScaleExpand key={idx} retention={idx + 6}>
-              <Box sx={boxCommonStyles}>
-                <Typography color='text.secondary' sx={fontSizeSubtitle}>
-                  {item.title}
-                </Typography>
-                <Typography sx={fontSizeData}>{item.text}</Typography>
-              </Box>
-            </ScaleExpand>
-          ))}
+          {commonOptions(card).map((item, idx) => {
+            return (
+              <ScaleExpand key={item.title} retention={idx + 6}>
+                <MainOptionItem item={item}/>
+              </ScaleExpand>
+            );
+          })}
         </Box>
 
         <ScaleExpand retention={11}>
           <Box sx={{ ...boxCommonStyles, p: 3, ...cardTitleStyles }}>
-            <Typography variant='h6' color='text.secondary' gutterBottom>
+            <Typography 
+              variant='h6' 
+              color='text.secondary' 
+              gutterBottom
+            >
               Погодні умови
             </Typography>
             <Typography variant='h4' sx={{ textTransform: 'capitalize' }}>

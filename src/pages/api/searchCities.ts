@@ -40,7 +40,7 @@ export default async function handler(
       },
     });
 
-    const cities = response.data.map((city) => ({
+    const cities = response.data.map((city: CityResult) => ({
       name: city.name,
       country: city.country,
       state: city.state,

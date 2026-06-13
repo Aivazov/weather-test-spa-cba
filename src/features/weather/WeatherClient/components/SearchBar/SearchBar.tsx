@@ -5,7 +5,7 @@
 import { TextField } from '@mui/material';
 import styles from './SearchBar.module.scss';
 import { textFieldStyles } from './SearchBarStyles';
-import { City, useWeatherSearch } from '../hooks/useWeatherSearch';
+import { City, useWeatherSearch } from '../../hooks/useWeatherSearch';
 
 const SearchBar = () => {
   const {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import { deleteWeatherCard } from '@/features/weather/weatherSlice';
+import { deleteWeatherCard } from '@/features/weather/store/weatherSlice';
 
 interface UseCityCardProps {
   id: string;

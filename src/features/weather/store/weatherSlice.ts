@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { refreshWeatherCards } from '../../redux/loadWeatherThunk';
+import { refreshWeatherCards } from '../../../redux/loadWeatherThunk';
 
 export interface WeatherCard {
   // id: number;

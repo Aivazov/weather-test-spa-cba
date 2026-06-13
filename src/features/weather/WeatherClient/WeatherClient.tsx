@@ -4,7 +4,7 @@ import Header from '@/widgets/Header/Header';
 // import CityCardsList from '../CityCardsList/CityCardsList';
 import { themeBlueBreeze } from '@/shared/ui/BgAnimation/BgAnimationAssets';
 import styles from './weatherClient.module.css';
-import CityCardsList from './CityCardsList/CityCardsList';
+import CityCardsList from './components/CityCardsList/CityCardsList';
 import Footer from '@/widgets/Footer/Footer';
 
 const WeatherClient = () => {

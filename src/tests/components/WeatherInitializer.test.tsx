@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import weatherSlice from '@/features/weather/weatherSlice';
+import weatherSlice from '@/features/weather/store/weatherSlice';
 import WeatherInitializer from '@/features/weather/containers/WeatherInitializer';
 
 // Mock fetch
