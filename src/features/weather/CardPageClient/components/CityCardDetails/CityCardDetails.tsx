@@ -44,6 +44,7 @@ const CityCardDetails = (props: Props) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            paddingTop: '40px',
             height: '120px', // даем немного пространства для иконки, если в стилях не указано
           }}
         >
@@ -97,9 +98,9 @@ const CityCardDetails = (props: Props) => {
         <Box sx={boxMainStyles}>
           {commonOptions(card).map((item, idx) => {
             return (
-              <ScaleExpand key={item.title} retention={idx + 6}>
+              <AppearingOut key={item.title} retention={1}>
                 <MainOptionItem item={item}/>
-              </ScaleExpand>
+              </AppearingOut>
             );
           })}
         </Box>

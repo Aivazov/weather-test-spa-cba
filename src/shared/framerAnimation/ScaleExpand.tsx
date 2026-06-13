@@ -13,7 +13,7 @@ const ScaleExpand = ({ children, retention }: Props) => {
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{
-        duration: 0.3,
+        duration: 0.22,
         ease: 'easeOut',
         delay: 0.1 * retention,
       }}
